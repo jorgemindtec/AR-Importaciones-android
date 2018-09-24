@@ -55,6 +55,7 @@
 		document.addEventListener("deviceready", onDeviceReady, false);
 		
 		function onDeviceReady() { 
+			//$("#inicio").hide();
 			pictureSource = navigator.camera.PictureSourceType;
 			destinationType = navigator.camera.DestinationType;
 	
@@ -86,6 +87,8 @@
 			}
 			else if(dato==1){*/
 				document.getElementById("load").className="hide";
+				
+				$("#inicio").show();
 		//	}
 		}
 	</script>	
@@ -134,7 +137,7 @@
  <!--  *****************************************************************************************************************  -->	
 	
 <!-- PANTALLA INICIO --------------------------------------------------------------- -->
-		<div id="inicio" class="contenedor inicio">
+		<div id="inicio" class="contenedor inicio" style="display:none;">
 			<div id="fondo"></div>
 			<div id="logo">
 				<img src="img/inicio.png">
@@ -524,9 +527,9 @@ $('#tiendas').change(function(){
 				<div id="info-contacto">
 					<h4 style="text-align:center;color: #00abec;">DATOS DE CONTACTO</h4>
 					<ul style="padding-left: 25px;">
-						<img src="img/location.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label>Calle Carlos Lineo #199 Plaza botánico Local 105 Col. Chapultepec C.P. 80040, Culiacán, Sinaloa, México.</label><br>
-						<img src="img/phone.png" style="width: 17px;margin: 0px 5px -3px -23px;"><label>Tel. (667) 191 0075</label><br>
-						<img src="img/email.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label><b>importacionescln@hotmail.com</b></label><br>
+						<img src="img/location.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label>Calle Carlos Lineo #1997 Plaza botánico Local 105 Col. Chapultepec C.P. 80040, Culiacán, Sinaloa, México.</label><br>
+						<img src="img/phone.png" style="width: 17px;margin: 0px 5px -3px -23px;"><label>Tel. (667) 16 7726 </label><br>
+						<img src="img/email.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label><b>compras@arimportaciones.mx</b></label><br>
 					</ul>
 				</div>
 				<div id="formulario-contacto" style="margin-top: 20px;">
@@ -548,7 +551,7 @@ $('#tiendas').change(function(){
 		
 		
 <!-- PANTALLA TOMAR FOTO ---------------------------------------------------------------------- -->
-		<div id="pantalla-foto" class="pantalla" style="display:none;">
+		<div id="pantalla-foto" class="pantalla contacto" style="display:none;">
 			<div class="content-header">
 				<div class="header"> 
 					<label class="titulo-pantalla">Tomar Foto</label>
