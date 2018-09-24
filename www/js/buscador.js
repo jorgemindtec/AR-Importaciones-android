@@ -72,6 +72,7 @@ function BuscarProducto(){
 		$("#lg-ebay").show();
 		$(".triangulo.buscador").show();
 		$("#Ebay").show();
+		//$("#Amazon").show();
 		Cargando();
 		
 		Amazon(keyword);
