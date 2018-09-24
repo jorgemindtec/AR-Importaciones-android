@@ -47,11 +47,11 @@ a {
     width: 100%;
     max-width: 300px;
 }
-#load.show {
-    transition: all 0.7s;
+#load.display {
+    /*transition: all 0s;*/
 }
 #load.hide {
-    transition: all 0.5s;
+    transition: all 0.3s;
     /* transform: translateX(-100%); */
     opacity: 0;
 }
