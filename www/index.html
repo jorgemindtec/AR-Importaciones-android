@@ -337,7 +337,8 @@
 		</div>
 
 <!-- PANTALLA BUSQUEDA ---------------------------------------------------------------------- -->
-		<div id="pantalla-buscador" class="pantalla" style="display:none;">
+		<div id="pantalla-buscador" style="display:none;">
+			<div class="fondo-productos"></div>
 			<div class="content-header">
 			<div class="header">
 				<div style="display: table;width: 100%;height: 65px;">
@@ -432,7 +433,8 @@ $('#tiendas').change(function(){
 		</div>
 
 <!-- PANTALLA LISTA DE PRODUCTOS ---------------------------------------------------------------------- -->
-		<div id="pantalla-lista-productos" class="pantalla" style="display:none;">
+		<div id="pantalla-lista-productos" style="display:none;">
+			<div class="fondo-productos"></div>
 			<div class="content-header">
 				<div class="header"> 
 					<label class="titulo-pantalla">Lista de Productos</label>
@@ -551,7 +553,7 @@ $('#tiendas').change(function(){
 		
 		
 <!-- PANTALLA TOMAR FOTO ---------------------------------------------------------------------- -->
-		<div id="pantalla-foto" class="pantalla contacto" style="display:none;">
+		<div id="pantalla-foto" class="pantalla contacto" style="padding-bottom: 1px; display: none;">
 			<div class="content-header">
 				<div class="header"> 
 					<label class="titulo-pantalla">Tomar Foto</label>
@@ -559,7 +561,7 @@ $('#tiendas').change(function(){
 			</div>
 			<div class="after-header">
 			</div>
-			<div class="contenedor">
+			<div class="contenedor"> 
 				<p class="titulo-foto">Tome o agregue un máximo de 6 fotos de su producto favorito.</p>
 				<div class="botones-camara">
 					<div class="boton-foto"><img src="img/camara.png" onclick="TomarFoto();"></div>
