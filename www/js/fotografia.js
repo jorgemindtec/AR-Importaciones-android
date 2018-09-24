@@ -85,7 +85,7 @@ function LibreriaImagen(imageURI) {
 	  fotoNum+=1;
 }
 function onFail(message) {
-      alert('Failed because: ' + message);
+      //alert('Failed because: ' + message);
 }
 
 function EliminarFoto(foto){
