@@ -36,6 +36,7 @@ a {
     left: 0;
     text-align: center;
     z-index: 9999;
+    opacity: 1;
 }
 #load table {
     height: 100%;
@@ -47,11 +48,12 @@ a {
     max-width: 300px;
 }
 #load.show {
-    transition: all 0.3s;
+    transition: all 0.7s;
 }
 #load.hide {
-    transition: all 0.3s;
-    transform: translateX(-100%);
+    transition: all 0.5s;
+    /* transform: translateX(-100%); */
+    opacity: 0;
 }
 
 /* ----- MENU ------------------- */
@@ -307,6 +309,8 @@ label.pasos {
     background: #1070ba;
     border-radius: 50%;
     box-shadow: inset 0px 0px 0px 3px #ffffff;
+    width: 45px;
+    height: 45px;
 }
 /* -- */
 /* -- */
