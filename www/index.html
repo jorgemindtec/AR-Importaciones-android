@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <title>AR Importaciones</title>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!--<meta name="msapplication-tap-highlight" content="no" />-->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script src="js/jquery-3.3.1.js" type="text/javascript"></script>
+	<script src="js/menu-enlaces.js" type="text/javascript"></script> 
+	<script src="js/buscador.js" type="text/javascript"></script> 
+	<script src="js/lista-producto.js" type="text/javascript"></script> 
+	<script src="js/fotografia.js" type="text/javascript"></script> 
+	<script src="js/usuario.js" type="text/javascript"></script> 
+
+    <!-- MENU  -->  
+    <link rel="stylesheet" href="css/touch-sideswipe.css">
+	<!-- carrusel imagenes  -->
+	<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script src="js/jssor.slider-27.4.0.min.js" type="text/javascript"></script>
+	<!-- ------------------ -->
+	
+	<!--<script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">-->
+	
+	<script>
+		var pictureSource;   // picture source		 
+		var destinationType; // sets the format of returned value
+	
+		document.addEventListener("deviceready", onDeviceReady, false);
+		
+		function onDeviceReady() { 
+			pictureSource = navigator.camera.PictureSourceType;
+			destinationType = navigator.camera.DestinationType;
+	
+			window.open = cordova.InAppBrowser.open;
+			navigator.splashscreen.hide();
+			
+			document.addEventListener("backbutton", BotonBackCel, false);	
+			
+			loadscreen(0);  
+			setTimeout(function() {
+				loadscreen(1);
+			}, 2000);
+		}
+		function BotonBackCel() {
+			if (botonReturn == true){
+				botonReturn = false;
+				$("#Zoom").hide();
+				$("#zoom"+ImgZoom+"img").hide();
+			}
+			else if (CerrarMenu == true){
+				CerrarMenu = false;
+				setTimeout(function() {touchSideSwipe.tssClose()}, 30);
+				document.getElementById('callClose').addEventListener('click', function(){touchSideSwipe.tssClose()});
+			}
+		}
+		function loadscreen(dato){
+			if(dato==0){
+				document.getElementById("load").className="display";				
+			}
+			else if(dato==1){
+				document.getElementById("load").className="hide";
+			}
+		}
+	</script>	
+</head>
+
+<body>
+<div id="load"><table><tr><td><img src="img/logo-AR.png"></td></tr></table></div>
+<!----- MENU ----------------------- -->
+    <div id="touchSideSwipe" class="touch-side-swipe">
+		<div id="info-menu">
+			<div><img src="img/inicio.png" style="width: 200px;"></div>
+			<p>Para importaciones seguras</p>
+			<p class="boton-sesion-inicio" onclick="menu(0)">Iniciar sesión</p>
+			<div id="login-usuario" style="display:none;">Bienvenido: <label id="usuario-sesion"></label></div>
+		</div>
+		<div id="element-menu">
+			<ul>
+				<li id="menu01" onclick="menu(1);" class="m-active"><img src="img/home.png"> <label>Inicio</label></li>
+				<li id="menu02" onclick="menu(2);"><img src="img/ar-menu.png"> <label>AR Importaciones</label></li>
+				<li id="menu03" onclick="menu(3);"><img src="img/buscador.png"> <label>Buscar Producto</label></li>
+				<li id="menu04" onclick="menu(4);"><img src="img/m-carrito2.png"> <label>Mi Carrito</label></li>
+				<li id="menu05" onclick="menu(5);"><img src="img/imp.png"> <label>Como Importar</label></li>
+				<li id="menu06" onclick="menu(6);"><img src="img/contacto-menu.png"> <label>Contacto</label></li>
+				<li id="menu06" onclick="menu(7);"><img src="img/m-camera.png"> <label>Tomar Foto a Producto</label></li>
+			</ul>
+			<div id="logout" style="display:none;"><label onclick="LogOut()">Cerrar Sesión</label></div>
+		</div>
+	</div>
+    <script src="js/touch-sideswipe.js"></script>
+    <script type="text/javascript">	
+        var config = {
+            elementID: 'touchSideSwipe',
+            elementWidth: 400, //px
+            elementMaxWidth: 0.8, // *100%
+            sideHookWidth: 5, //px
+            moveSpeed: 0.2, //sec
+            opacityBackground: 0.8,
+            shiftForStart: 150, // px
+            windowMaxWidth: 1024, // px
+        }
+        var touchSideSwipe = new TouchSideSwipe(config);
+		/*
+        document.getElementById('callOpen').addEventListener('click', function(){touchSideSwipe.tssOpen()});
+        document.getElementById('callClose').addEventListener('click', function(){touchSideSwipe.tssClose()});*/
+    </script>	
+ <!--  *****************************************************************************************************************  -->	
+	
+<!-- PANTALLA INICIO --------------------------------------------------------------- -->
+		<div id="inicio" class="contenedor inicio">
+			<div id="fondo"></div>
+			<div id="logo">
+				<img src="img/inicio.png">
+			</div>
+			<div id="buscador">
+				<div style="width: 100%;max-width: 600px;display: table;">
+					<div style="display: table-cell;vertical-align: middle; padding-right: 14px;">
+						<input type="text" id="buscador-inicio" placeholder="Buscar Producto">
+					</div>
+					<div style="display: table-cell;vertical-align: middle; width: 40px;">
+						<img src="img/buscar-inicio.png" style="padding: 6px 4px;vertical-align: top;" onclick="BuscadorInicio()">
+					</div>
+				</div>
+				<img src="img/ebay.png" class="logos-input"><img src="img/amazon.png" class="logos-input">
+			</div>
+			<div id="foto-inicio">
+				<img src="img/foto-inicio.png" onclick="menu(7)">
+				<div>
+					<label onclick="menu(7)">"Take a Picture"</label>
+				</div>
+				<!--<div style="width: 100%;max-width: 600px;display: table;">
+					<div style="display: table-cell;vertical-align: middle;padding: 5px 15px;background: white;text-align: center;font-size: 18px;border-radius: 10px;" onclick="menu(7)">
+						<label>"Take a Picture"</label>
+						<img src="img/camera.png" style="padding: 0px 4px;vertical-align: middle;width: 44px;border-left: 1px #616161 solid;">
+					</div>
+				</div>-->
+			</div>
+			<div id="importar-inicio">
+				<img src="img/importar-inicio.png" onclick="menu(5);">
+				<div>
+					<label onclick="menu(5);">¿Cómo Importar?</label>
+				</div>
+			</div>
+			<div id="sesion-inicio">
+				<img src="img/sesion-inicio.png">
+				<div style="margin-bottom: 10px;">
+					<label>Inicia Sesión</label>
+				</div>
+				<table class="botones-sesion">
+					<tr>
+						<td onclick="menu(0);formLogin();">Identifícate</td>
+						<td style="width: 20px;background: none;"></td>
+						<td onclick="menu(0);formRegister();">Regístrate</td>
+					</tr>
+				</table>
+			</div>
+			
+<!-- CARRUSEL ------------------ -->
+<!-- jQuery -->
+	<script type="text/javascript">
+        jQuery(document).ready(function ($) {
+
+            var jssor_1_options = {
+              $AutoPlay: 1,
+              $AutoPlaySteps: 1,
+              $SlideDuration: 250,
+              $SlideWidth: 150,
+              $SlideSpacing: 15,
+              $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$,
+                $Steps: 1
+              },
+              $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$
+              }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*#region responsive code begin*/
+
+            var MAX_WIDTH = 980;
+
+            function ScaleSlider() {
+                var containerElement = jssor_1_slider.$Elmt.parentNode;
+                var containerWidth = containerElement.clientWidth;
+
+                if (containerWidth) {
+
+                    var expectedWidth = Math.min(MAX_WIDTH || containerWidth, containerWidth);
+
+                    jssor_1_slider.$ScaleWidth(expectedWidth);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $(window).bind("load", ScaleSlider);
+            $(window).bind("resize", ScaleSlider);
+            $(window).bind("orientationchange", ScaleSlider);
+            /*#endregion responsive code end*/
+        });
+    </script>
+<!-- CSS -->
+	<style>
+        /*jssor slider loading skin spin css*/
+        .jssorl-009-spin img {
+            animation-name: jssorl-009-spin;
+            animation-duration: 1.6s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes jssorl-009-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /*jssor slider arrow skin 073 css*/
+        .jssora073 {display:block;position:absolute;cursor:pointer;}
+        .jssora073 .a {fill:#ddd;fill-opacity:.7;stroke:#000;stroke-width:160;stroke-miterlimit:10;stroke-opacity:.7;}
+        .jssora073:hover {opacity:.8;}
+        .jssora073.jssora073dn {opacity:.4;}
+        .jssora073.jssora073ds {opacity:.3;pointer-events:none;}
+		
+		#jssor_1 img {border-radius: 10px;}
+    </style>
+<!-- HTML -->
+	<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;/*width:100%;*/height:150px;overflow:hidden;visibility:hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
+            <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
+        </div>
+        <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:150px;overflow:hidden;">
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+            </div>
+        </div>
+    </div>
+<!------------------------------ -->	
+			<div id="social-media">
+				<div class="fondo-social">
+					<label style="line-height: 42px;">Síguenos:</label>
+				</div>
+				<div class="logos-social">
+					<div><a href="#" onclick="var ref = cordova.InAppBrowser.open('https://www.instagram.com/?hl=es-la', '_system', 'location=yes');"><img src="img/inst.png"></a></div><div><a href="#" onclick="var ref = cordova.InAppBrowser.open('http://www.arimportaciones.mx/', '_system', 'location=yes');"><img src="img/web.png"></a></div><div><a href="#" onclick="var ref = cordova.InAppBrowser.open('https://es-la.facebook.com/AR-IMPORTACIONES-406096866398/', '_system', 'location=yes');"><img src="img/face.png"></a></div>
+				</div>
+			</div>
+
+		</div>
+		
+<!-- PANTALLA AR IMPORTACIONES -------------------------------------------------------------- -->
+		<div id="pantalla-ar" class="pantalla" style="display:none;">
+			<div class="content-header">
+				<div class="header"> 
+					<label class="titulo-pantalla">AR Importaciones</label>
+				</div>
+			</div>
+			<div class="after-header"></div>
+			<img src="img/ar-img.jpg" style="width: 100%;">
+			<div class="triangulo"></div>
+			<div class="contenedor fondo">
+				<h3>¿QUIENES SOMOS?</h3>
+				<p>AR Importaciones somos un fuerte equipo de trabajo que esta siempre a la vanguardia y en constante capacitación para darle 
+				un servicio optimo y de excelente calidad a sus clientes con el fin de que estos queden satisfechos y recomienden nuestros 
+				servicios. Esta empresa actualmente se encuentra realizando operaciones y servicios de comercio exterior desde su sede principal 
+				que es Culiacan, Sinaloa, Mexico. Pero cuenta con clientes en toda la republica mexicana.</p><p>Nos encargamos de toda la logistica 
+				integral, tus productos estan en buenas manos, nos encargamos de dar seguimiento a todos tus embarques, verificar la documentacion, 
+				cruzes aduanales, importaciones, exportaciones, almacenamiento,fletes internacionales maritimos, aereos y terrestres, busqueda 
+				de proveedores, etc. no lo pienses mas somos tu mejor opción en comercio exterior.<p>
+			</div>
+			
+		</div>
+
+<!-- PANTALLA BUSQUEDA ---------------------------------------------------------------------- -->
+		<div id="pantalla-buscador" class="pantalla" style="display:none;">
+			<div class="content-header">
+			<div class="header">
+				<div style="display: table;width: 100%;height: 65px;">
+					<div class="input-search">
+						<div style="display: table;width: 100%;height: 65px;max-width: 600px;">
+							<div style="display: table-cell;vertical-align: middle;width: 190px;">
+								<input id="buscar" type="text" placeholder="Buscar Producto">
+							</div>
+							<div class="input-boton">
+								<img src="img/buscar-inicio.png" onclick="BuscarProducto()">
+							</div>
+						</div>
+					</div>
+					
+					<div id="caja">
+						<div onclick="menu(4);" style="width: 45px;height: 40px;position: absolute;top: 10px;right: 10px;">
+							<label id="total-caja"><p id="total-producto" style="margin:0px;line-height: 20px;">0</p></label>
+							<img src="img/carrito.png">
+						</div>
+					</div>
+				</div>				
+			</div>
+	<!-- PESTAÑA DE BUSCADORES ---------------- -->
+			<div id="buscadores">
+				<div id="header-tienda">
+				<select id="tiendas">
+					<option value="1" selected>Ebay</option>
+					<option value="2">Amazon</option>
+					<option value="3">Alibaba</option>
+					<option value="4">Made in China</option>
+					<option value="5">Aliexpress</option>
+				</select>
+				<div id="logo-tiendas">
+					<img id="lg-ebay" src="img/lg-ebay.png">
+					<img id="lg-amazon" src="img/lg-amazon.png" style="display:none;">
+					<img id="lg-ebay" src="img/lg-ebay.png" style="display:none;">
+				</div>
+				</div>
+				<script>
+$('#tiendas').change(function(){ 
+    //var value = $(this).val();
+	if ($(this).val() == 1){
+		EbayContent();
+	}
+	else if ($(this).val() == 2){
+		AmazonContent();
+	}
+});
+				</script>
+			</div>
+			</div>
+			<div class="after-header buscador"></div>
+	<!-- CONTENEDORES DE PRODUCTOS ------------ -->
+			<div class="load-productos" style="display:none;"><div style="margin: 0 auto;width: 40px;margin-top: 10px;"><div class="loader"></div></div></div>
+			<div class="triangulo buscador" style="display:none;"></div>
+			<div class="contenedor productos">
+				<div id="Ebay" class="products" style="display:none;"></div>
+				<div id="Amazon" class="products" style="display:none;"></div>
+				<div id="Alibaba" class="products" style="display:none;"></div>
+				<div id="Aliexpress" class="products" style="display:none;"></div>
+				<div id="tienda5"></div>
+				<div id="tienda6"></div>
+				<div id="tienda7"></div>
+			</div>
+			<div id="mensaje-carrito" style="display:none;">
+				<div id="contenedor-mensaje" class="mensaje">
+					<!--<img id="boton-cerrar-mensaje" src="img/close.png" onclick="CerrarMensajeProducto()">-->
+					<div class="detalle-mensaje">
+						<div style="text-align: center;">
+							<img src="img/carrito.png">
+						</div>
+						<div style="text-align: center;margin-bottom: 20px;font-size: 20px;">
+							<h3>El producto<br> se agregó al carrito.</h3>
+						</div>
+						<div clasS="boton-mensaje seleccionar">
+							<img src="img/volver.png" onclick="CerrarMensajeProducto()">
+						</div>
+						<div clasS="boton-mensaje carrito">
+							<img src="img/ircarrito.png" onclick="IrCarrito()">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<style>
+
+
+
+
+			</style>
+			
+		</div>
+
+<!-- PANTALLA LISTA DE PRODUCTOS ---------------------------------------------------------------------- -->
+		<div id="pantalla-lista-productos" class="pantalla" style="display:none;">
+			<div class="content-header">
+				<div class="header"> 
+					<label class="titulo-pantalla">Lista de Productos</label>
+				</div>
+			</div>
+			<div class="after-header">
+			</div>
+			<div class="contenedor lista-productos">
+				<div id="lista-productos">
+					<div>
+						<div id="btn-regresar">
+							<img src="img/volver2.png" onclick="menu(3)">
+						</div>
+					</div>
+					<div id="lista-vacia" style="text-align: center;color: #0069b4;font-weight: bold;text-decoration: underline;">
+						<p>Aun no cuentas con productos seleccionados.</p>
+					</div>
+					<div id="lista-ebay" class="listas-de-productos" style="display:none;margin-top:0px !important;">
+						<div class="logos-lista">
+							<img id="lg-ebay" src="img/lg-ebay.png">
+						</div>
+						<div class="triangulo buscador" style="display:none;"></div>
+						<div id="productos-ebay" class="products lista">
+						</div>
+					</div>
+					<div id="lista-amazon" class="listas-de-productos" style="display:none;">
+						<div class="logos-lista">
+							<img id="lg-amazon" src="img/lg-amazon.png">
+						</div>
+						<div class="triangulo buscador" style="display:none;"></div>
+						<div id="productos-amazon" class="products lista">
+						</div>
+					</div>
+				</div>
+				
+				<div id="formulario-lista-productos">
+					<h3 style="text-align: center;">Envíanos tu lista para cotizar la importación.</h3>
+					<form id="form-lista-productos">
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-lista-nombre" class="form-lista" placeholder="Nombre"></div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-lista-telefono" class="form-lista" placeholder="Telefono"></div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-lista-email" class="form-lista" placeholder="E-mail"></div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><textarea  id="form-lista-mensaje" class="form-lista mensaje" placeholder="Mensaje"></textarea> </div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="button" class="form-boton" value="Contactar"></div>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+<!-- PANTALLA COMO IMPORTAR ---------------------------------------------------------------------- -->
+		<div id="pantalla-como-importar" class="pantalla" style="display:none;">
+			<div class="content-header">
+				<div class="header"> 
+					<label class="titulo-pantalla">¿Cómo Importar?</label>
+				</div>
+			</div>
+			<div class="after-header">
+			</div>
+			<div class="triangulo"></div>
+			<div class="contenedor fondo">
+				<p>Importar con AR Importaciones es sencillo pues nosotros nos encargamos de todos los procesos que conlleva una operación de comercio exterior para que esta sea efectiva y de calidad.</p>
+				<p>Te explicaremos en resumidos pasos como Importar un producto con nosotros ya sea para uso personal o para hacer negocio.</p>
+				
+				<div><p><label class="pasos">Paso 1</label><br>
+					Apóyate en nuestros buscadores que te ofrecemos en la aplicación para encontrar tus productos.</p>
+				</div>
+				<div><p><label class="pasos">Paso 2</label><br>
+					Al encontrar tu producto podrás contactarnos directamente y decirnos que quieres ese producto para nosotros cotizarte según las cantidades deseadas.</p>
+				</div>
+				<div><p><label class="pasos">Paso 3</label><br>
+					Uno de nuestros asesores te guiará para realizar la compra y dará seguimiento a tu producto hasta que este lo recibas en la puerta de tu hogar.</p>
+				</div>
+				<p style="font-weight: bold;margin-bottom: 5px;">Así de sencillo es importar con:</p>
+				<div style="text-align:center;"><img src="img/pie.png"></div>
+				<p>Viste algún producto, viste algo que te gustaría tener? </p>
+				<p>Pues que crees? en esta aplicación tendrás la opción “Take a picture”  y automáticamente nos enviaras esa fotografía del producto que quieres y de inmediato un asesor te contactará para dar seguimiento con la búsqueda, compra e importación del mismo.</p>
+			</div>		
+		</div>
+
+<!-- PANTALLA CONTACTO ---------------------------------------------------------------------- -->
+		<div id="pantalla-contacto" class="pantalla contacto" style="display:none;">
+			<div class="content-header">
+				<div class="header"> 
+					<label class="titulo-pantalla">Contacto</label>
+				</div>
+			</div>
+			<div class="after-header">
+			</div>
+			<div class="contenedor" style="margin-bottom: 0;">
+				<h3 style="margin-top: 0;text-align: center;">MANTENTE EN CONTACTO</h3>
+				<p style="text-align: center;">Te gustaría saber más acerca de nosotros.</p>
+				
+				<div id="info-contacto">
+					<h4 style="text-align:center;color: #00abec;">DATOS DE CONTACTO</h4>
+					<ul style="padding-left: 25px;">
+						<img src="img/location.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label>Calle Carlos Lineo #199 Plaza botánico Local 105 Col. Chapultepec C.P. 80040, Culiacán, Sinaloa, México.</label><br>
+						<img src="img/phone.png" style="width: 17px;margin: 0px 5px -3px -23px;"><label>Tel. (667) 191 0075</label><br>
+						<img src="img/email.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label><b>importacionescln@hotmail.com</b></label><br>
+					</ul>
+				</div>
+				<div id="formulario-contacto" style="margin-top: 20px;">
+					<form id="form-contacto">
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-nombre" class="form-lista" placeholder="Nombre"></div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-telefono" class="form-lista" placeholder="Telefono"></div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-email" class="form-lista" placeholder="E-mail"></div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><textarea  id="form-mensaje" class="form-lista mensaje" placeholder="Mensaje"></textarea> </div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="button" class="form-boton" value="Contactar"></div>
+					</form>
+				</div>
+				<div style="margin-top: 40px;text-align:center;">
+					<div style="text-align: center;margin-top: 10px;"><a href="#" onclick="var ref = cordova.InAppBrowser.open('https://api.whatsapp.com/send?phone=+526671643735&text=Hola, necesito información acerca de la app.', '_system', 'location=yes');"><img src="img/whatsapp.png" style="border-radius: 5px;"></a></div>
+					Si desea consultar con un asesor<br> especializado, comunícate con nosotros.
+					<p style="text-align: center;color: #0069b4;"><b>BUSINESS AROUND THE WORLD</b></p>
+				</div>
+			</div>
+		</div>
+		
+		
+<!-- PANTALLA TOMAR FOTO ---------------------------------------------------------------------- -->
+		<div id="pantalla-foto" class="pantalla" style="display:none;">
+			<div class="content-header">
+				<div class="header"> 
+					<label class="titulo-pantalla">Tomar Foto</label>
+				</div>
+			</div>
+			<div class="after-header">
+			</div>
+			<div class="contenedor">
+				<p class="titulo-foto">Tome o agregue un máximo de 6 fotos de su producto favorito.</p>
+				<div class="botones-camara">
+					<div class="boton-foto"><img src="img/camara.png" onclick="TomarFoto();"></div>
+					<div class="boton-foto"><img src="img/galeria.png" onclick="ObtenerFoto(pictureSource.SAVEDPHOTOALBUM);"></div>
+				</div>
+				<div id="contenedor-fotos">
+				</div>
+				<div id="Zoom" style="display:none;">
+					<div id="selected-foto">
+					</div>
+					<div id="input-foto">
+					</div>
+				</div>
+				<div class="divisor-fotos"></div>
+				<div id="formulario-foto">
+					<form id="form-foto" method="post" >
+					<fieldset class="dataform" data-role="fieldcontain" data-type="horizontal" style="border:none;">
+						<div class="form-foto-input">
+							<input id="FotoNombre" class="form-lista" type="text" name="FotoNombre" placeholder="Nombre"><br>
+							<span id="error-FotoNombre" style="color: #0069b4;display: none;">* Favor de ingresar el Nombre</span>
+						</div>
+						<div class="form-foto-input">
+							<input id="FotoTelefono" class="form-lista" type="tel" name="FotoTelefono" placeholder="Telefono"><br>
+							<span id="error-FotoTelefono" style="color: #0069b4;display: none;">* Favor de ingresar el Teléfono</span>
+						</div>
+						<div class="form-foto-input">
+							<input id="FotoEmail" class="form-lista" type="email" name="FotoEmail" placeholder="E-mail"><br>
+							<span id="error-FotoEmail" style="color: #0069b4;display: none;">* Favor de ingresar el Email</span>
+						</div>
+						<div class="form-foto-input">
+							<textarea  id="FotoMensaje" class="form-lista mensaje" name="FotoMensaje">Hola, Estoy interesado en el producto de la imagen. Dar mas detalles: </textarea><br>
+							<span id="error-FotoMensaje" style="color: #0069b4;display: none;">* Favor de ingresar el Mensaje</span>
+						</div>
+						<!--<button type="submit" id="send-fotos"><label>Enviar</label></button>-->
+						<button type="submit" id="send-fotos" onclick="ValidarFormFotos()"><label>Enviar</label></button>						
+					</form>
+				</div>
+			</div>
+		</div>
+		
+<!-- PANTALLA SESION ---------------------------------------------------------------------- -->
+		<div id="pantalla-sesion" class="pantalla contacto" style="display:none;">
+			<div class="content-header">
+				<div class="header"> 
+					<label class="titulo-pantalla">Usuario</label>
+				</div>
+			</div>
+			<div class="after-header">
+			</div>
+			<div class="contenedor">
+				<div style="text-align: center;margin-bottom: 30px;">
+					<img src="img/inicio.png" style="width: 150px;">					
+				</div>
+				<div style="position: relative;height: 20px;font-size: 18px;margin-bottom: 30px;">
+					<div style="text-align: center;width: 50%;float: left;font-size: 22px;"><label onclick="formLogin()">Identifícate</label>
+						<div id="identificate" style="width: 110px;height: 3px;background: linear-gradient(to right, rgb(0, 171, 234) 0%, rgb(26, 28, 91) 100%);margin: 0 auto;border-radius: 15px;"></div>
+					</div>
+					<div style="text-align: center;width: 50%;float: right;font-size: 22px;"><label onclick="formRegister()">Regístrate</label>
+						<div id="registrate" style="display:none;width: 110px;height: 3px;background: linear-gradient(to left, rgb(0, 171, 234) 0%, rgb(26, 28, 91) 100%);margin: 0 auto;border-radius: 15px;"></div>
+					</div>
+				</div>
+				
+				<div id="formulario-inicio-sesion">
+					<form id="form-inicio-sesion">
+					<fieldset class="dataform" data-role="fieldcontain" data-type="horizontal" style="border:none;">
+						<div class="form-foto-input">
+							<input id="SesionUsuario" class="form-lista" type="text" name="SesionUsuario" placeholder="Usuario"><br>
+							<span id="error-SesionUsuario" style="color: #00a8e7;display: none;">* Favor de ingresar el Usuario</span>
+						</div>
+						<div class="form-foto-input">
+							<input id="SesionPass" class="form-lista" type="password" name="SesionPass" placeholder="Contraseña"><br>
+							<span id="error-SesionPass" style="color: #00a8e7;display: none;">* Favor de ingresar la Contraseña</span>
+						</div>
+						<input type="button" class="form-boton" onclick="IniciarSesion()" value="Iniciar Sesión">
+						<div><span id="resultado" style="display:none;"></span></div>
+					</form>
+				</div>
+				
+				<div id="formulario-registro-usuario" style="display:none;">
+					<form id="form-registro-usuario">
+					<fieldset class="dataform" data-role="fieldcontain" data-type="horizontal" style="border:none;">
+						<div class="form-foto-input">
+							<input id="CuentaNombre" class="form-lista" type="text" name="CuentaNombre" placeholder="Nombre"><br>
+							<span id="error-CuentaNombre" style="color: #00a8e7;display: none;">* Favor de ingresar el Nombre</span>
+						</div>
+						<div class="form-foto-input">
+							<input id="CuentaTelefono" class="form-lista" type="tel" name="CuentaTelefono" placeholder="Telefono"><br>
+							<span id="error-CuentaTelefono" style="color: #00a8e7;display: none;">* Favor de ingresar el Teléfono</span>
+						</div>
+						<div class="form-foto-input">
+							<input id="CuentaEmail" class="form-lista" type="email" name="CuentaEmail" placeholder="E-mail"><br>
+							<span id="error-CuentaEmail" style="color: #00a8e7;display: none;">* Favor de ingresar el Email</span>
+						</div>
+						<div class="form-foto-input">
+							<input id="CuentaUsuario" class="form-lista" type="email" name="CuentaUsuario" placeholder="Usuario"><br>
+							<span id="error-CuentaUsuario" style="color: #00a8e7;display: none;">* Favor de ingresar el Usuario</span>
+						</div>
+						<div class="form-foto-input">
+							<input id="CuentaPass" class="form-lista" type="password" name="CuentaPass" placeholder="Contraseña"><br>
+							<span id="error-CuentaPass" style="color: #00a8e7;display: none;">* Favor de ingresar la Contraseña</span>
+						</div>
+						<input type="button" class="form-boton" onclick="CrearCuenta()" value="Registrarse">
+						<div><span id="resultado2" style="display:none;"></span></div>
+						
+					</form>
+					
+					<div>
+						<p>Al registrarse en AR Importaciones aceptas nuestras <label>Condiciones de uso</label> y <label>Política de privacidad</label>.
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+<!-- onclick="ValidarFormFotos()" ------------------------------------------------------------------------------------------------------------------------- -->
+	
+    <script type="text/javascript" src="cordova.js"></script>
+   <!-- <script type="text/javascript">
+        app.initialize();
+    </script>-->
+</body>
+
+</html>

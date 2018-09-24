@@ -1,0 +1,73 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "ar.importaciones"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "ar.importaciones"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "ar.importaciones"
+        }
+    }
+}
