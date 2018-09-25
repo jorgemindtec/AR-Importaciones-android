@@ -68,6 +68,7 @@
 			setTimeout(function() {
 				loadscreen();
 			}, 2000);
+			
 		}
 		function BotonBackCel() {
 			if (botonReturn == true){
@@ -91,6 +92,7 @@
 				$("#inicio").show();
 		//	}
 		}
+		
 	</script>	
 </head>
 
@@ -371,23 +373,28 @@
 					<option value="4">Made in China</option>
 					<option value="5">Aliexpress</option>
 				</select>
-				<div id="logo-tiendas">
-					<img id="lg-ebay" src="img/lg-ebay.png">
-					<img id="lg-amazon" src="img/lg-amazon.png" style="display:none;">
-					<img id="lg-ebay" src="img/lg-ebay.png" style="display:none;">
-				</div>
-				</div>
 				<script>
-$('#tiendas').change(function(){ 
+				
+$("#tiendas").change(function(){
     //var value = $(this).val();
+	//alert(value);
 	if ($(this).val() == 1){
 		EbayContent();
 	}
 	else if ($(this).val() == 2){
 		AmazonContent();
 	}
+	else if ($(this).val() == 3){
+		AlibabaContent();
+	}
 });
-				</script>
+</script>
+				<div id="logo-tiendas">
+					<img id="lg-ebay" src="img/lg-ebay.png">
+					<img id="lg-amazon" src="img/lg-amazon.png" style="display:none;">
+					<img id="lg-alibaba" src="img/ar-menu.png" style="display:none;">
+				</div>
+				</div>
 			</div>
 			</div>
 			<div class="after-header buscador"></div>
