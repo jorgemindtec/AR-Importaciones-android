@@ -69,10 +69,11 @@ function BuscarProducto(){
 		OcultarProductos();
 		$("#tiendas").val(1);
 		//$("#Ebay-Productos").addClass( "active" );
-		$("#lg-ebay").show();
+		//$("#lg-ebay").show();
 		$(".triangulo.buscador").show();
-		$("#Ebay").show();
-		//$("#Amazon").show();
+		//$("#Ebay").show();
+		$("#lg-amazon").show();
+		$("#Amazon").show();
 		Cargando();
 		
 		Amazon(keyword);
