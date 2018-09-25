@@ -6,7 +6,8 @@ function OcultarProductos(){
 	$("#lg-amazon").hide();
 	//$("#Amazon-Productos" ).removeClass( "active" );
 	//$("#Ebay-Productos" ).removeClass( "active" );
-	//$("#Alibaba").hide();	
+	$("#Alibaba").hide();	
+	$("#lg-alibaba").hide();
 }
 function Cargando(){
 	var loading = $(".load-productos").html();
@@ -14,6 +15,8 @@ function Cargando(){
 	$("#Ebay").append(loading);
 	$("#Amazon").html("");
 	$("#Amazon").append(loading);
+	//$("#Alibaba").html("");
+	//$("#Alibaba").append(loading);
 	
 }
 // --------- BUSCADOR DE PRODUCTOS DE INICIO---------------
@@ -46,7 +49,7 @@ function BuscadorInicio(){
 		
 		Amazon(keyword);
 		Ebay(keyword);
-		//Alibaba(keyword);
+		Alibaba(keyword);
 	}
 }
 
@@ -59,6 +62,8 @@ $(function() { // EVENTO ENTER
 		}
 	});
 });
+
+
 function BuscarProducto(){
 	var keyword = $.trim(document.getElementById("buscar").value);
 	if (keyword==""){
@@ -66,26 +71,28 @@ function BuscarProducto(){
 		$("#buscar").focus();
 	}
 	else{
+		/*$("#lg-alibaba").show();
+		$(".triangulo.buscador").show();
+		$("#Alibaba").show();*/
 		OcultarProductos();
 		$("#tiendas").val(1);
-		//$("#Ebay-Productos").addClass( "active" );
-		//$("#lg-ebay").show();
-		$(".triangulo.buscador").show();
-		//$("#Ebay").show();
-		$("#lg-amazon").show();
-		$("#Amazon").show();
+		$("#Ebay-Productos").addClass( "active" );
+		$("#lg-ebay").show();
+		//$(".triangulo.buscador").show();
+		$("#Ebay").show();
+		//$("#lg-amazon").show();
+	//	$("#Amazon").show();
 		Cargando();
 		
 		Amazon(keyword);
 		Ebay(keyword);
-		//Alibaba(keyword);
+		Alibaba(keyword);
 	}
 }
 
 // ------- PESTAÑAS DE TIENDAS ---------------- 
 function EbayContent(){
 	OcultarProductos();
-	//alert("asd ebay");
 	//$("#Ebay-Productos").addClass( "active" );
 	$(".triangulo.buscador").show();
 	$("#lg-ebay").show();
@@ -97,6 +104,13 @@ function AmazonContent(){
 	$(".triangulo.buscador").show();
 	$("#lg-amazon").show();
 	$("#Amazon").show();
+}
+function AlibabaContent(){
+	OcultarProductos();
+	//$("#Amazon-Productos").addClass( "active" );
+	$(".triangulo.buscador").show();
+	$("#lg-alibaba").show();
+	$("#Alibaba").show();
 }
 
 // -------- PRODUCTOS POR PESTAÑAS ------------------
@@ -123,14 +137,14 @@ function Ebay(producto){
 		else{
 			var index = 0;
 			
-			$( "#srp-river-main .s-item" ).each(function( index ) {			
+			$( "#srp-river-main .s-item" ).each(function( index ) {
 				if( index < element){	
 					var id="eb"+index;			
 					var enlace = $('.s-item__link').attr('href');
 					var contenido = $('.s-item__wrapper').html();
 					$( this ).html("<div id='ebay-"+index+"' class='info-producto'>"+ contenido + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaEbay("+index+")'>Eliminar</div></div></div>");
 				}
-			});	
+			});
 		}		
 	});
 }
@@ -158,7 +172,7 @@ function Amazon(producto){
 			//alert("encontro");
 			var index = 0;
 			$( "#resultItems .sx-table-item" ).each(function( index ) {			
-				if( index <= element){
+				if( index < element){
 					var id="am"+index;
 					var enlace = $('.aw-search-results').attr('href');
 					var link ="https://www.amazon.com" + enlace;
@@ -170,30 +184,41 @@ function Amazon(producto){
 	});
 }
 
-/*
+
 function Alibaba(producto){	
-	var SearchUrl = 'https://m.alibaba.com/trade/search?SearchText=';
-	var Url = ''+SearchUrl+producto+' #page';	
+	var texto = producto.replace(/ /g,"+");
+	var SearchUrl = 'https://m.alibaba.com/trade/search?SearchText='+texto;
+	//alert(SearchUrl);
+	var Url = ''+SearchUrl+' #page';
 		
 	$('#Alibaba').load(Url, function() {
 		$( ".app-banner" ).remove();
-		var element = $('.product-item').length;
-		alert("total: "+element);
+		var element = $('.product-detail').length;
+		//alert("total: "+element);
 		var index = 0;
 		
-		/*$( "#page .product-item" ).each(function( index ) {
-			
-			if( index < element){				
+		$( "#page .product-detail" ).each(function( index ) {
+			if( index < element){	
+					//var id="alb"+index;*/
+					var enlace = $('.product-detail').attr('href');
+					var contenido = $('.product-detail').html();
+					//$( this ).html("<div id='alibaba-"+index+"' class='info-producto'>"+ contenido + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaEbay("+index+")'>Eliminar</div></div></div>");
+				}
+		/*	if( index < element){				
 			//	var enlace = $('.aw-search-results').attr('href');
 			//	var link ="https://www.amazon.com" + enlace;
 				var contenido = $('.product-item').html();
 				$(this).html(contenido);
 			//	$( this ).html(contenido + "<div class='select-producto'><label>Me Interesa</label> <button id='"+index+"' value='"+link+"'>Seleccionar</button></div>");
-			}
-		});*/
-	/*	
+			}*/
+			/*	if( index < element){	
+					var id="alb"+index;			
+					var enlace = $('.product-detail').attr('href');
+					var contenido = $('.product-item .ripple .grid-item').html();
+					$( this ).html("<div id='alibaba-"+index+"' class='info-producto'>"+ contenido + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaEbay("+index+")'>Eliminar</div></div></div>");
+				}*/
+		});
+	
 	});
-}*/
-
-
+}
 
