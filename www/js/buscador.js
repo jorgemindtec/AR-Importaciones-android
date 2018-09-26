@@ -4,10 +4,12 @@ function OcultarProductos(){
 	$("#lg-ebay").hide();
 	$("#Amazon").hide();
 	$("#lg-amazon").hide();
-	//$("#Amazon-Productos" ).removeClass( "active" );
-	//$("#Ebay-Productos" ).removeClass( "active" );
 	$("#Alibaba").hide();	
 	$("#lg-alibaba").hide();
+	$("#MadeChina").hide();	
+	$("#lg-madechina").hide();
+	$("#Aliexpress").hide();	
+	$("#lg-aliexpress").hide();
 }
 function Cargando(){
 	var loading = $(".load-productos").html();
@@ -15,8 +17,12 @@ function Cargando(){
 	$("#Ebay").append(loading);
 	$("#Amazon").html("");
 	$("#Amazon").append(loading);
-	//$("#Alibaba").html("");
-	//$("#Alibaba").append(loading);
+	$("#Alibaba").html("");
+	$("#Alibaba").append(loading);
+	$("#MadeChina").html("");
+	$("#MadeChina").append(loading);
+	$("#Aliexpress").html("");
+	$("#Aliexpress").append(loading);
 	
 }
 // --------- BUSCADOR DE PRODUCTOS DE INICIO---------------
@@ -50,6 +56,7 @@ function BuscadorInicio(){
 		Amazon(keyword);
 		Ebay(keyword);
 		Alibaba(keyword);
+		MadeChina(keyword);
 	}
 }
 
@@ -71,36 +78,29 @@ function BuscarProducto(){
 		$("#buscar").focus();
 	}
 	else{
-		/*$("#lg-alibaba").show();
-		$(".triangulo.buscador").show();
-		$("#Alibaba").show();*/
 		OcultarProductos();
 		$("#tiendas").val(1);
-		$("#Ebay-Productos").addClass( "active" );
 		$("#lg-ebay").show();
-		//$(".triangulo.buscador").show();
 		$("#Ebay").show();
-		//$("#lg-amazon").show();
-	//	$("#Amazon").show();
-		Cargando();
+		$(".triangulo.buscador").show();
+			Cargando();
 		
 		Amazon(keyword);
 		Ebay(keyword);
 		Alibaba(keyword);
+		MadeChina(keyword);
 	}
 }
 
 // ------- PESTAÑAS DE TIENDAS ---------------- 
-function EbayContent(){
+/*function EbayContent(){
 	OcultarProductos();
-	//$("#Ebay-Productos").addClass( "active" );
 	$(".triangulo.buscador").show();
 	$("#lg-ebay").show();
 	$("#Ebay").show();
 }
 function AmazonContent(){
 	OcultarProductos();
-	//$("#Amazon-Productos").addClass( "active" );
 	$(".triangulo.buscador").show();
 	$("#lg-amazon").show();
 	$("#Amazon").show();
@@ -111,14 +111,12 @@ function AlibabaContent(){
 	$(".triangulo.buscador").show();
 	$("#lg-alibaba").show();
 	$("#Alibaba").show();
-}
+}*/
 
 // -------- PRODUCTOS POR PESTAÑAS ------------------
 function Ebay(producto){
-	//Cargando();
 	var texto = producto.replace(/ /g,"+");
 	var SearchUrl = 'https://m.ebay.com/sch/i.html?_from=R40&_trksid=p2056088.m4084.l1313.TR12.TRC2.A0.H0.X'+texto+'.TRS0&_nkw='+texto;
-	//var SearchUrl = 'https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2056088.m4084.l1313.TR12.TRC2.A0.H0.X'+texto+'.TRS0&_nkw='+texto;
 	var Url = ''+SearchUrl+' #srp-river-main';
 	
 	$('#Ebay').load(Url, function() {
@@ -129,8 +127,6 @@ function Ebay(producto){
 		$( "#srp-river-results-SEARCH_PAGINATION_MODEL_V2" ).remove();
 		$( "#srp-river-results-query_answer2" ).remove();
 		var element = $('.s-item').length;
-		//var element = $('#srp-river-main .s-item').length;
-		//alert(element);
 		if (element == 0){
 			Ebay(producto);
 		}
@@ -149,7 +145,6 @@ function Ebay(producto){
 	});
 }
 function Amazon(producto){
-	//Cargando();
 	var texto = producto.replace(/ /g,"+");
 	var SearchUrl = 'https://www.amazon.com/gp/aw/s/ref=is_s?k='+texto;
 	//var SearchUrl = 'https://www.amazon.com/s?k='+texto+'&ref=is_s';
@@ -184,41 +179,69 @@ function Amazon(producto){
 	});
 }
 
-
 function Alibaba(producto){	
 	var texto = producto.replace(/ /g,"+");
 	var SearchUrl = 'https://m.alibaba.com/trade/search?SearchText='+texto;
-	//alert(SearchUrl);
 	var Url = ''+SearchUrl+' #page';
-		
+	
 	$('#Alibaba').load(Url, function() {
 		$( ".app-banner" ).remove();
-		var element = $('.product-detail').length;
-		//alert("total: "+element);
-		var index = 0;
-		
-		$( "#page .product-detail" ).each(function( index ) {
-			if( index < element){	
-					//var id="alb"+index;*/
-					var enlace = $('.product-detail').attr('href');
-					var contenido = $('.product-detail').html();
-					//$( this ).html("<div id='alibaba-"+index+"' class='info-producto'>"+ contenido + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaEbay("+index+")'>Eliminar</div></div></div>");
-				}
-		/*	if( index < element){				
-			//	var enlace = $('.aw-search-results').attr('href');
-			//	var link ="https://www.amazon.com" + enlace;
-				var contenido = $('.product-item').html();
-				$(this).html(contenido);
-			//	$( this ).html(contenido + "<div class='select-producto'><label>Me Interesa</label> <button id='"+index+"' value='"+link+"'>Seleccionar</button></div>");
-			}*/
-			/*	if( index < element){	
+		var element = $('.product-item').length;
+		if (element == 0){
+			Alibaba(producto);
+		}
+		else{
+			var index = 0;
+			
+			$( "#page .product-item" ).each(function( index ) {
+				if( index < element){	
 					var id="alb"+index;			
 					var enlace = $('.product-detail').attr('href');
-					var contenido = $('.product-item .ripple .grid-item').html();
-					$( this ).html("<div id='alibaba-"+index+"' class='info-producto'>"+ contenido + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaEbay("+index+")'>Eliminar</div></div></div>");
-				}*/
-		});
-	
+					var imagen = $('.image-wrap img').attr('src');
+					//alert(imagen);
+					//var srcimage = imagen.substring(2);
+					var srcimage = "https:"+imagen
+					//alert(srcimage);
+					var texto = $('.product-info-wrap').html()
+					//alert("index "+index+" | enlace "+enlace+" | imagen "+imagen);
+					//var contenido = $('.product-detail').html();
+					$(this ).html("<div><img src='"+srcimage+"'>"+texto+"</div>");
+					$( this ).html("<div id='alibaba-"+index+"' class='info-producto'><div class='sx-table-pic'><img src='"+srcimage+"'></div>"+texto+ "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaAlibaba("+index+")'>Eliminar</div></div></div>");
+				}
+			});
+		}		
 	});
+		
 }
 
+function MadeChina(producto){
+	var texto = producto.replace(/ /g,"+");
+	var SearchUrl = 'https://m.made-in-china.com/search/product?word='+texto;
+	var Url = ''+SearchUrl+' .products-wrap';
+	
+	$('#MadeChina').load(Url, function() {
+		var element = $('.list-item').length;
+		if (element == 0){
+			MadeChina(producto);
+		}
+		else{
+			var index = 0;
+			
+			$( ".products-wrap .list-item" ).each(function( index ) {
+				if( index < element){	
+					var id="alb"+index;			
+					var enlace = $('.products-img').attr('href');
+					var imagen = $('.products-img img').attr('src');
+					//alert(imagen);
+					//var srcimage = imagen.substring(2);
+					//alert(srcimage);
+					var texto = $('.product-info-wrap').html()
+					//alert("index "+index+" | enlace "+enlace+" | imagen "+imagen);
+					//var contenido = $('.product-detail').html();
+					$(this ).html("<div><img src='"+imagen+"'>"+imagen+" as "+texto+"</div>");
+					//$( this ).html("<div id='ebay-"+index+"' class='info-producto'>"+ imagen + texto + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaEbay("+index+")'>Eliminar</div></div></div>");
+				}
+			});
+		}		
+	});
+}
