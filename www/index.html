@@ -377,22 +377,45 @@
 				
 $("#tiendas").change(function(){
     //var value = $(this).val();
-	//alert(value);
+	//alert(value);	
 	if ($(this).val() == 1){
-		EbayContent();
+		OcultarProductos();
+		$(".triangulo.buscador").show();
+		$("#Ebay").show();
+		$("#lg-ebay").show();
 	}
 	else if ($(this).val() == 2){
-		AmazonContent();
+		OcultarProductos();
+		$(".triangulo.buscador").show();
+		$("#Amazon").show();
+		$("#lg-amazon").show();
 	}
 	else if ($(this).val() == 3){
-		AlibabaContent();
+		OcultarProductos();
+		$(".triangulo.buscador").show();
+		$("#Alibaba").show();
+		$("#lg-alibaba").show();
+	}
+	else if ($(this).val() == 4){
+		OcultarProductos();
+		$(".triangulo.buscador").show();
+		$("#MadeChina").show();
+		$("#lg-madechina").show();
+	}
+	else if ($(this).val() == 5){
+		OcultarProductos();
+		$(".triangulo.buscador").show();
+		$("#Aliexpress").show();
+		$("#lg-aliexpress").show();
 	}
 });
 </script>
 				<div id="logo-tiendas">
 					<img id="lg-ebay" src="img/lg-ebay.png">
 					<img id="lg-amazon" src="img/lg-amazon.png" style="display:none;">
-					<img id="lg-alibaba" src="img/ar-menu.png" style="display:none;">
+					<img id="lg-alibaba" src="img/lg-alibaba.png" style="display:none;">
+					<img id="lg-madechina" src="img/lg-made.png" style="display:none;">
+					<img id="lg-aliexpress" src="img/lg-aliexpress.png" style="display:none;">
 				</div>
 				</div>
 			</div>
@@ -405,10 +428,8 @@ $("#tiendas").change(function(){
 				<div id="Ebay" class="products" style="display:none;"></div>
 				<div id="Amazon" class="products" style="display:none;"></div>
 				<div id="Alibaba" class="products" style="display:none;"></div>
+				<div id="MadeChina" class="products" style="display:none;"></div>
 				<div id="Aliexpress" class="products" style="display:none;"></div>
-				<div id="tienda5"></div>
-				<div id="tienda6"></div>
-				<div id="tienda7"></div>
 			</div>
 			<div id="mensaje-carrito" style="display:none;">
 				<div id="contenedor-mensaje" class="mensaje">
