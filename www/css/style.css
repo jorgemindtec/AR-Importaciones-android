@@ -960,7 +960,41 @@ input.form-boton {
     border: 1px #0069b4 solid;
     color: white;
 }*/
-
+#Alibaba #page {
+    padding: 20px 30px;
+    margin: 0;
+}
+#Alibaba .product-item {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px #1070ba solid;
+}
+#Alibaba .sx-table-pic {
+    width: 140px;
+    padding: 5px 0;
+    position: relative;
+    margin: 0 auto;
+}
+#Alibaba .sx-table-pic img {
+    width: 140px;
+}
+#Alibaba .product-title, #Alibaba .product-moq, #Alibaba .product-price.product-fob-wrap {
+    padding: 5px;
+}
+#Alibaba .list-refine {
+    display: none;
+}
+#Alibaba .active-step-img {
+    display: none !important;
+}
+#Alibaba .recommend.grid-item.more {
+    display: none;
+}
+#Alibaba .bicon-wrap {
+    display: none;
+}
 
 /* --------------------- FOTOGRAFIA ------------- */
 p.titulo-foto {
