@@ -732,9 +732,13 @@ span.a-color-secondary {
     padding: 5px 0;
     position: relative;
     margin: 0 auto;
+    text-align: center;
+}
+#Amazon .sx-table-pic img {
+    max-width: 140px;
 }
 #Amazon .sx-table-detail {
-    padding: 2px 8px;
+    padding: 5px;
 }
 #Amazon .sx-table-detail h5 {
     margin-top: 5px;
@@ -976,9 +980,10 @@ input.form-boton {
     padding: 5px 0;
     position: relative;
     margin: 0 auto;
+    text-align: center;
 }
 #Alibaba .sx-table-pic img {
-    width: 140px;
+    max-width: 140px;
 }
 #Alibaba .product-title, #Alibaba .product-moq, #Alibaba .product-price.product-fob-wrap {
     padding: 5px;
@@ -995,7 +1000,38 @@ input.form-boton {
 #Alibaba .bicon-wrap {
     display: none;
 }
+#Alibaba .action-wrap {
+    display: none;
+}
 
+#MadeChina .products-wrap.cf.J-items-wrap {
+    padding: 20px 30px;
+    margin: 0;
+}
+#MadeChina .list-item {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px #1070ba solid;
+}
+#MadeChina .sx-table-pic {
+    width: 140px;
+    padding: 5px 0;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+#MadeChina .sx-table-pic img {
+    max-width: 140px;
+}
+#MadeChina .md-texto {
+    padding: 5px;
+}
+#MadeChina .md-titulo {
+    color: #1070ba;
+    font-weight: bold;
+}
 /* --------------------- FOTOGRAFIA ------------- */
 p.titulo-foto {
     margin-top: 0px;
