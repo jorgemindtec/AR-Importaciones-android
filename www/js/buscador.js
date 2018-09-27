@@ -57,6 +57,7 @@ function BuscadorInicio(){
 		Ebay(keyword);
 		Alibaba(keyword);
 		MadeChina(keyword);
+		Aliexpress(keyword);
 	}
 }
 
@@ -89,6 +90,7 @@ function BuscarProducto(){
 		Ebay(keyword);
 		Alibaba(keyword);
 		MadeChina(keyword);
+		Aliexpress(keyword);
 	}
 }
 
@@ -147,34 +149,27 @@ function Ebay(producto){
 function Amazon(producto){
 	var texto = producto.replace(/ /g,"+");
 	var SearchUrl = 'https://www.amazon.com/gp/aw/s/ref=is_s?k='+texto;
-	//var SearchUrl = 'https://www.amazon.com/s?k='+texto+'&ref=is_s';
-	//alert(SearchUrl);
 	var Url = ''+SearchUrl+' #resultItems';
-	//var Url = ''+SearchUrl+'';
-	//alert("amazon");
 	$('#Amazon').load(Url, function() {
 		
-	//alert("cargA");
-		//$( ".sx-acs" ).remove();
 		var element = $('#resultItems .sx-table-item').length;
-		//var element = $('#rightResultsATF .s-result-item').length;
-		//alert(element+" amazon");
 		if (element == 0){
-			//alert("nada");
 			Amazon(producto);
 		}
 		else{
-			//alert("encontro");
 			var index = 0;
 			$( "#resultItems .sx-table-item" ).each(function( index ) {			
 				if( index < element){
 					var id="am"+index;
 					var enlace = $('.aw-search-results').attr('href');
 					var link ="https://www.amazon.com" + enlace;
-					var contenido = $('.sx-table-row').html();
+					var imagen = $('.sx-product-image').attr('src');
+					var texto = $('.sx-table-detail').html();
+					var contenido = "<div class='sx-table-pic'><img src='"+imagen+"'></div><div class='sx-table-detail'>"+texto+"</div>";
+					//var contenido = $('.sx-table-row').html();
 					$( this ).html("<div id='amazon-"+index+"' class='info-producto'>"+ contenido + "<div id='enlace-"+id+"' style='display:none;'><span>"+link+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaAmazon("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a la lista</div></div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaAmazon("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaAmazon("+index+")'>Eliminar</div></div></div>");
 				}
-			});	
+			});
 		}		
 	});
 }
@@ -198,18 +193,14 @@ function Alibaba(producto){
 					var id="alb"+index;			
 					var enlace = $('.product-detail').attr('href');
 					var imagen = $('.image-wrap img').attr('src');
-					//alert(imagen);
-					//var srcimage = imagen.substring(2);
 					var srcimage = "https:"+imagen
-					//alert(srcimage);
 					var texto = $('.product-info-wrap').html()
 					//alert("index "+index+" | enlace "+enlace+" | imagen "+imagen);
 					//var contenido = $('.product-detail').html();
-					$(this ).html("<div><img src='"+srcimage+"'>"+texto+"</div>");
 					$( this ).html("<div id='alibaba-"+index+"' class='info-producto'><div class='sx-table-pic'><img src='"+srcimage+"'></div>"+texto+ "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaAlibaba("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaAlibaba("+index+")'>Eliminar</div></div></div>");
 				}
 			});
-		}		
+		}
 	});
 		
 }
@@ -229,19 +220,57 @@ function MadeChina(producto){
 			
 			$( ".products-wrap .list-item" ).each(function( index ) {
 				if( index < element){	
-					var id="alb"+index;			
+					var id="mdc"+index;			
 					var enlace = $('.products-img').attr('href');
-					var imagen = $('.products-img img').attr('src');
-					//alert(imagen);
-					//var srcimage = imagen.substring(2);
-					//alert(srcimage);
-					var texto = $('.product-info-wrap').html()
-					//alert("index "+index+" | enlace "+enlace+" | imagen "+imagen);
-					//var contenido = $('.product-detail').html();
-					$(this ).html("<div><img src='"+imagen+"'>"+imagen+" as "+texto+"</div>");
-					//$( this ).html("<div id='ebay-"+index+"' class='info-producto'>"+ imagen + texto + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaEbay("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaEbay("+index+")'>Eliminar</div></div></div>");
+					var imagen = $('.products-img img').attr('data-original');
+					//var texto = $('.products-info').html();
+					var titulo = $('.pro-name a').html();
+					var precio = $('.pro-price').html();
+					var qty = $('.pro-moq').html();
+					var año = $('.medal').html();
+					var texto = "<div class='md-texto'><div class='md-titulo'>"+titulo+"</div><div class='md-precio'>"+precio+"</div><div class='md-qty'>"+qty+"</div><div class='md-año'>"+año+"</div></div>";
+					//$(this ).html("<div><img src='"+imagen+"'>"+imagen+" as "+texto+"</div>");
+					$( this ).html("<div id='madechina-"+index+"' class='info-producto'><div class='sx-table-pic'><img src='"+imagen+"'></div>"+ texto + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaMadeChina("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaMadeChina("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaMadeChina("+index+")'>Eliminar</div></div></div>");
 				}
 			});
-		}		
+		}	
+	});
+}
+
+
+function Aliexpress(producto){
+	var texto = producto.replace(/ /g,"-");
+	//var SearchUrl = 'https://m.aliexpress.com/wholesale/'+texto+'.html?channel=direct&keywords='+texto;
+	var SearchUrl = 'https://www.aliexpress.com/af/'+texto+'.html?SearchText='+texto+'&blanktest=0&origin=n&jump=afs';
+	//alert(SearchUrl);
+	var Url = ''+SearchUrl+' #hs-below-list-items';
+	
+	$('#Aliexpress').load(Url, function() {
+		var element = $('.list-item').length;
+		//alert(element);
+		if (element == 0){
+			Aliexpress(producto);
+		}
+		else{
+			var index = 0;
+			
+			$( "#hs-below-list-items .list-item" ).each(function( index ) {
+				if( index < 8){	
+					var id="ali"+index;			
+					var enlace = $('.product-item-list').attr('href');
+					
+					var imagensrc = $('.img .pic img').attr('src');
+					var imagen ='https:'+imagensrc;
+					//var texto = $('.products-info').html();
+					/*var titulo = $('.pro-name a').html();
+					var precio = $('.pro-price').html();
+					var qty = $('.pro-moq').html();
+					var año = $('.medal').html();*/
+					//var texto = "<div class='md-texto'><div class='md-titulo'>"+titulo+"</div><div class='md-precio'>"+precio+"</div><div class='md-qty'>"+qty+"</div><div class='md-año'>"+año+"</div></div>";
+					$(this ).html("<div><img src='"+imagen+"'>"+imagen+"</div>");
+					//$( this ).html("<div id='aliexpress-"+index+"' class='info-producto'><div class='sx-table-pic'><img src='"+imagen+"'></div>"+ texto + "<div id='enlace-"+id+"' style='display:none;'><span>"+enlace+"</span></div></div><div class='select-producto'><div class='div-boton'><div id='lbl-onn-"+id+"' class='boton-seleccionar' onclick='ListaMadeChina("+index+")'>Me Interesa</div><div id='lbl-off-"+id+"' style='display:none;'>Agregado a Lista</div> </div><div class='div-boton espacio'></div> <div class='div-boton'><div id='btn-onn-"+id+"' class='boton-seleccionar' onclick='ListaMadeChina("+index+")'>Seleccionar</div><div id='btn-off-"+id+"' class='boton-seleccionado' style='display:none;' onclick='QuitarListaMadeChina("+index+")'>Eliminar</div></div></div>");
+				}
+			});
+		}	
 	});
 }
