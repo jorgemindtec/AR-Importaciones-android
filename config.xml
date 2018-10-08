@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="ar.importaciones" version="1.0.0" >
-    <name>AR Importaciones</name>
+    <name>AR Import</name>
     <description>Tus Importaciones Seguras.</description>
     <author href="http://mindtec.com.mx/" email="contacto@mindtec.com.mx">Mindtec Software Revolution</author>
     <content src="index.html" />
@@ -87,4 +87,4 @@
         <allow-intent href="itms-apps:*" />
     </platform>
 	
-</widget> 
+</widget>
