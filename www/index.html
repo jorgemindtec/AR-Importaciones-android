@@ -35,8 +35,10 @@
 	<script src="js/menu-enlaces.js" type="text/javascript"></script> 
 	<script src="js/buscador.js" type="text/javascript"></script> 
 	<script src="js/lista-producto.js" type="text/javascript"></script> 
+	<script src="js/formularios.js" type="text/javascript"></script> 
 	<script src="js/fotografia.js" type="text/javascript"></script> 
 	<script src="js/usuario.js" type="text/javascript"></script> 
+	<script src="js/database.js" type="text/javascript"></script> 
 
     <!-- MENU  -->  
     <link rel="stylesheet" href="css/touch-sideswipe.css">
@@ -51,7 +53,20 @@
 	<script>
 		var pictureSource;   // picture source		 
 		var destinationType; // sets the format of returned value
-	
+		
+		var Lista_Ebay = [];
+		var Indice_Ebay = 0;
+		var Lista_Amazon = [];
+		var Indice_Amazon = 0;
+		var Lista_Alibaba = [];
+		var Indice_Alibaba = 0;
+		var Lista_Madechina = [];
+		var Indice_Madechina = 0;
+		var Lista_Aliexpress = [];
+		var Indice_Aliexpress = 0;
+		
+		CrearBD();
+		
 		document.addEventListener("deviceready", onDeviceReady, false);
 		
 		function onDeviceReady() { 
@@ -189,9 +204,8 @@
 			
 <!-- CARRUSEL ------------------ -->
 <!-- jQuery -->
-	<script type="text/javascript">
+	<script>
         jQuery(document).ready(function ($) {
-
             var jssor_1_options = {
               $AutoPlay: 1,
               $AutoPlaySteps: 1,
@@ -232,7 +246,7 @@
             $(window).bind("resize", ScaleSlider);
             $(window).bind("orientationchange", ScaleSlider);
             /*#endregion responsive code end*/
-        });
+       });
     </script>
 <!-- CSS -->
 	<style>
@@ -269,34 +283,34 @@
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
-            </div>
-            <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
             </div>
             <div>
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
                 <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
                 <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
@@ -380,30 +394,40 @@ $("#tiendas").change(function(){
 	//alert(value);	
 	if ($(this).val() == 1){
 		OcultarProductos();
+		//$("#up").focus();
+		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Ebay").show();
 		$("#lg-ebay").show();
 	}
 	else if ($(this).val() == 2){
 		OcultarProductos();
+		//$("#up").focus();
+		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Amazon").show();
 		$("#lg-amazon").show();
 	}
 	else if ($(this).val() == 3){
 		OcultarProductos();
+		//$("#up").focus();
+		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Alibaba").show();
 		$("#lg-alibaba").show();
 	}
 	else if ($(this).val() == 4){
 		OcultarProductos();
+		//$("#up").focus();
+		topFunction();
 		$(".triangulo.buscador").show();
 		$("#MadeChina").show();
 		$("#lg-madechina").show();
 	}
 	else if ($(this).val() == 5){
 		OcultarProductos();
+		//$("#up").focus();
+		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Aliexpress").show();
 		$("#lg-aliexpress").show();
@@ -430,7 +454,24 @@ $("#tiendas").change(function(){
 				<div id="Alibaba" class="products" style="display:none;"></div>
 				<div id="MadeChina" class="products" style="display:none;"></div>
 				<div id="Aliexpress" class="products" style="display:none;"></div>
+				<img id="GoTop" src="img/up.png" onclick=" topFunction()">
 			</div>
+			<script>
+window.onscroll = function() {scrollFunction()};
+function scrollFunction() {
+
+    if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+        document.getElementById("GoTop").style.display = "block";
+    } else {
+        document.getElementById("GoTop").style.display = "none";
+    }
+}			
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}			
+			
+			</script>
 			<div id="mensaje-carrito" style="display:none;">
 				<div id="contenedor-mensaje" class="mensaje">
 					<!--<img id="boton-cerrar-mensaje" src="img/close.png" onclick="CerrarMensajeProducto()">-->
@@ -472,15 +513,15 @@ $("#tiendas").change(function(){
 			</div>
 			<div class="contenedor lista-productos">
 				<div id="lista-productos">
-					<div>
+					<div style="position: absolute;top: 80px;">
 						<div id="btn-regresar">
 							<img src="img/volver2.png" onclick="menu(3)">
 						</div>
 					</div>
-					<div id="lista-vacia" style="text-align: center;color: #0069b4;font-weight: bold;text-decoration: underline;">
+					<div id="lista-vacia" style="text-align: center;color: #0069b4;font-weight: bold;text-decoration: underline;margin-top: 30px;">
 						<p>Aun no cuentas con productos seleccionados.</p>
 					</div>
-					<div id="lista-ebay" class="listas-de-productos" style="display:none;margin-top:0px !important;">
+					<div id="lista-ebay" class="listas-de-productos" style="display:none;">
 						<div class="logos-lista">
 							<img id="lg-ebay" src="img/lg-ebay.png">
 						</div>
@@ -496,18 +537,61 @@ $("#tiendas").change(function(){
 						<div id="productos-amazon" class="products lista">
 						</div>
 					</div>
+					<div id="lista-alibaba" class="listas-de-productos" style="display:none;">
+						<div class="logos-lista">
+							<img id="lg-alibaba" src="img/lg-alibaba.png">
+						</div>
+						<div class="triangulo buscador" style="display:none;"></div>
+						<div id="productos-alibaba" class="products lista">
+						</div>
+					</div>
+					<div id="lista-madechina" class="listas-de-productos" style="display:none;">
+						<div class="logos-lista">
+							<img id="lg-madechina" src="img/lg-made.png">
+						</div>
+						<div class="triangulo buscador" style="display:none;"></div>
+						<div id="productos-madechina" class="products lista">
+						</div>
+					</div>
+					<div id="lista-aliexpress" class="listas-de-productos" style="display:none;">
+						<div class="logos-lista">
+							<img id="lg-aliexpress" src="img/lg-aliexpress.png">
+						</div>
+						<div class="triangulo buscador" style="display:none;"></div>
+						<div id="productos-aliexpress" class="products lista">
+						</div>
+					</div>
 				</div>
 				
-				<div id="formulario-lista-productos">
-					<h3 style="text-align: center;">Envíanos tu lista para cotizar la importación.</h3>
-					<form id="form-lista-productos">
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-lista-nombre" class="form-lista" placeholder="Nombre"></div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-lista-telefono" class="form-lista" placeholder="Telefono"></div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-lista-email" class="form-lista" placeholder="E-mail"></div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><textarea  id="form-lista-mensaje" class="form-lista mensaje" placeholder="Mensaje"></textarea> </div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="button" class="form-boton" value="Contactar"></div>
+				<div id="form-lista-productos">
+					<h3 style="text-align: center;margin-top: 30px;">Envíanos tu lista para cotizar la importación.</h3>
+					<form id="form-lista">
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<input type="text" id="form-lista-nombre" class="form-lista" placeholder="Nombre"><br>
+							<span id="error-form-lista-nombre" style="color: #0069b4;display: none;">* Favor de ingresar el Nombre</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<input type="text" id="form-lista-telefono" class="form-lista" placeholder="Telefono"><br>
+							<span id="error-form-lista-telefono" style="color: #0069b4;display: none;">* Favor de ingresar el Teléfono</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<input type="text" id="form-lista-email" class="form-lista" placeholder="E-mail"><br>
+							<span id="error-form-lista-email" style="color: #0069b4;display: none;">* Favor de ingresar el Email</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<textarea  id="form-lista-mensaje" class="form-lista mensaje" placeholder="Mensaje"></textarea><br>
+							<span id="error-form-lista-mensaje" style="color: #0069b4;display: none;">* Favor de ingresar el Mensaje</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<button type="submit" class="form-boton" onclick="ValidarFormLista()"><label>Contactar</label></button>	
+						</div>
+						<div style="text-align: center;"><span id="mensaje-lista"></span></div>
 					</form>
 				</div>
+				<div onclick="CrearBD()">crear</div>
+				<div onclick="borrar()">reset</div>
+				<div onclick="Reporte()">Reporte</div>
+				<table id="bd"></table>
 			</div>
 			
 		</div>
@@ -564,17 +648,32 @@ $("#tiendas").change(function(){
 				</div>
 				<div id="formulario-contacto" style="margin-top: 20px;">
 					<form id="form-contacto">
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-nombre" class="form-lista" placeholder="Nombre"></div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-telefono" class="form-lista" placeholder="Telefono"></div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="text" id="form-email" class="form-lista" placeholder="E-mail"></div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><textarea  id="form-mensaje" class="form-lista mensaje" placeholder="Mensaje"></textarea> </div>
-						<div style="width: 100%;margin: 5px 0;text-align: center;"><input type="button" class="form-boton" value="Contactar"></div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<input type="text" id="form-nombre" class="form-lista" placeholder="Nombre"><br>
+							<span id="error-form-nombre" style="color: #0089c2;display: none;">* Favor de ingresar el Nombre</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<input type="text" id="form-telefono" class="form-lista" placeholder="Telefono"><br>
+							<span id="error-form-telefono" style="color: #0089c2;display: none;">* Favor de ingresar el Teléfono</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<input type="text" id="form-email" class="form-lista" placeholder="E-mail"><br>
+							<span id="error-form-email" style="color: #0089c2;display: none;">* Favor de ingresar el Email</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<textarea  id="form-mensaje" class="form-lista mensaje" placeholder="Mensaje"></textarea><br>
+							<span id="error-form-mensaje" style="color: #0089c2;display: none;">* Favor de ingresar el Mensaje</span>
+						</div>
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<button type="submit" class="form-boton" onclick="ValidarFormContacto()"><label>Contactar</label></button>	
+						</div>
+						<div style="text-align: center;"><span id="mensaje-contacto"></span></div>
 					</form>
 				</div>
 				<div style="margin-top: 40px;text-align:center;">
 					<div style="text-align: center;margin-top: 10px;"><a href="#" onclick="var ref = cordova.InAppBrowser.open('https://api.whatsapp.com/send?phone=+526671643735&text=Hola, necesito información acerca de la app.', '_system', 'location=yes');"><img src="img/whatsapp.png" style="border-radius: 5px;"></a></div>
 					Si desea consultar con un asesor<br> especializado, comunícate con nosotros.
-					<p style="text-align: center;color: #0069b4;"><b>BUSINESS AROUND THE WORLD</b></p>
+					<p style="text-align: center;color: #0089c2;"><b>BUSINESS AROUND THE WORLD</b></p>
 				</div>
 			</div>
 		</div>
@@ -605,7 +704,7 @@ $("#tiendas").change(function(){
 				</div>
 				<div class="divisor-fotos"></div>
 				<div id="formulario-foto">
-					<form id="form-foto" method="post" >
+					<form id="form-foto">
 					<fieldset class="dataform" data-role="fieldcontain" data-type="horizontal" style="border:none;">
 						<div class="form-foto-input">
 							<input id="FotoNombre" class="form-lista" type="text" name="FotoNombre" placeholder="Nombre"><br>
@@ -623,8 +722,10 @@ $("#tiendas").change(function(){
 							<textarea  id="FotoMensaje" class="form-lista mensaje" name="FotoMensaje">Hola, Estoy interesado en el producto de la imagen. Dar mas detalles: </textarea><br>
 							<span id="error-FotoMensaje" style="color: #0069b4;display: none;">* Favor de ingresar el Mensaje</span>
 						</div>
-						<!--<button type="submit" id="send-fotos"><label>Enviar</label></button>-->
-						<button type="submit" id="send-fotos" onclick="ValidarFormFotos()"><label>Enviar</label></button>						
+						<div style="width: 100%;margin: 5px 0;text-align: center;">
+							<button type="submit" id="send-fotos" onclick="ValidarFormFotos()"><label>Enviar</label></button>	
+						</div>					
+						<div style="text-align: center;"><span id="mensaje-foto"></span></div>					
 					</form>
 				</div>
 			</div>
