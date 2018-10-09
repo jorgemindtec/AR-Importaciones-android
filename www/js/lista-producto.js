@@ -1,10 +1,15 @@
  var TotalProducto = 0;
  
  var EbayList = [];
- var NumeroEbay = 0;
- 
+ var NumeroEbay = 0; 
  var AmazonList = [];
  var NumeroAmazon = 0;
+ var AlibabaList = [];
+ var NumeroAlibaba = 0;
+ var MadechinaList = [];
+ var NumeroMadechina = 0;
+ var AliexpressList = [];
+ var NumeroAliexpress = 0;
 
 function MostrarMensajeCarrito() {
 	$("#mensaje-carrito").show();
@@ -39,10 +44,16 @@ function ListaEbay(producto){
 	$("#productos-ebay").html("");
 	jQuery.each( EbayList, function( i, valor ) {
 		if (valor != 'null'){
-			var informacion = $("#"+valor).html();
-			$("#productos-ebay").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+			var imagen = $("#"+valor+" .s-item__image-section").html();
+			var titulo = $("#"+valor+" .s-item__title").html();
+			var precio = $("#"+valor+" .s-item__price span").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-ebay").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='s-item__image-section'>"+imagen+"</div><div class='s-item__info clearfix'><h3 class='s-item__title'>"+titulo+"</h3><span>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+			//var informacion = $("#"+valor).html();
+			//$("#productos-ebay").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
 		}
-	});	
+	});
 }
 function QuitarListaEbay(producto){
 	var existe = false;
@@ -64,12 +75,17 @@ function QuitarListaEbay(producto){
 	jQuery.each( EbayList, function( i, valor ) {
 		if (valor !='null'){
 			existe = true;
-			var informacion = $("#"+valor).html();
-			$("#productos-ebay").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' value='1'></div></div>");
+			var imagen = $("#"+valor+" .s-item__image-section").html();
+			var titulo = $("#"+valor+" .s-item__title").html();
+			var precio = $("#"+valor+" .s-item__price span").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-ebay").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='s-item__image-section'>"+imagen+"</div><div class='s-item__info clearfix'><h3 class='s-item__title'>"+titulo+"</h3><span class='price_am'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+			//var informacion = $("#"+valor).html();
+			//$("#productos-ebay").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' value='1'></div></div>");
 		}
 	});
 	if (existe == false){
-		//alert("lista vacia");
 		$("#lista-ebay").hide();
 	}
 } 
@@ -92,10 +108,16 @@ function ListaAmazon(producto){
 	$("#productos-amazon").html("");
 	jQuery.each( AmazonList, function( i, valor ) {
 		if (valor != 'null'){
-			var informacion = $("#"+valor).html();
-			$("#productos-amazon").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .sx-title.sx-title-inline").html();
+			var precio = $("#"+valor+" .a-size-small.a-color-price.a-text-bold").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-amazon").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='sx-table-detail'><h5 class='sx-title sx-title-inline'>"+titulo+"</h5><span class='price_am'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+			//var informacion = $("#"+valor).html();
+			//$("#productos-amazon").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
 		}
-	});	
+	});
 }
 function QuitarListaAmazon(producto){
 	var existe = false;
@@ -117,16 +139,198 @@ function QuitarListaAmazon(producto){
 	jQuery.each( AmazonList, function( i, valor ) {
 		if (valor !='null'){
 			existe = true;
-			var informacion = $("#"+valor).html();
-			$("#productos-amazon").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' value='1'></div></div>");
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .sx-title.sx-title-inline").html();
+			var precio = $("#"+valor+" .a-size-small.a-color-price.a-text-bold").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-amazon").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='sx-table-detail'><h5 class='sx-title sx-title-inline'>"+titulo+"</h5><span>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+			//var informacion = $("#"+valor).html();
+			//$("#productos-amazon").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'>"+informacion+"<div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' value='1'></div></div>");
 		}		
 	});
 	if (existe == false){
-		//alert("lista vacia");
 		$("#lista-amazon").hide();
 	}
 } 
  
+function ListaAlibaba(producto){
+	MostrarMensajeCarrito();
+	TotalProducto+=1;
+	$("#total-producto").text(""+TotalProducto+"");
+	
+	$("#lbl-onn-alb"+producto).hide();
+	$("#lbl-off-alb"+producto).show();
+	$("#btn-onn-alb"+producto).hide();
+	$("#btn-off-alb"+producto).show();
+	
+	var id = "alibaba-"+producto;	
+	AlibabaList[NumeroAlibaba] = id;
+	NumeroAlibaba+=1;
+	$("#lista-alibaba").show();
+	$("#productos-alibaba").html("");
+	jQuery.each( AlibabaList, function( i, valor ) {
+		if (valor != 'null'){
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .product-title").html();
+			var precio = $("#"+valor+" .product-price").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-alibaba").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='s-item__info clearfix'><h3 class='product-title'>"+titulo+"</h3><span class='price_alb'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+		}
+	});
+}
+function QuitarListaAlibaba(producto){
+	var existe = false;
+	TotalProducto-=1;
+	$("#total-producto").text(""+TotalProducto+"");
+	
+	$("#lbl-onn-alb"+producto).show();
+	$("#lbl-off-alb"+producto).hide();
+	$("#btn-onn-alb"+producto).show();
+	$("#btn-off-alb"+producto).hide();
+	
+	var id = "alibaba-"+producto;	
+	$("#productos-alibaba").html("");
+	jQuery.each( AlibabaList, function( i, valor ) {
+		if (valor == id){
+			AlibabaList[i] = 'null';			
+		}
+	});
+	jQuery.each( AlibabaList, function( i, valor ) {
+		if (valor !='null'){
+			existe = true;
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .product-title").html();
+			var precio = $("#"+valor+" .product-price").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-alibaba").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='s-item__info clearfix'><h3 class='product-title'>"+titulo+"</h3><span class='price_alb'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+		}
+	});
+	if (existe == false){
+		$("#lista-alibaba").hide();
+	}
+} 
+ 
+function ListaMadechina(producto){
+	MostrarMensajeCarrito();
+	TotalProducto+=1;
+	$("#total-producto").text(""+TotalProducto+"");
+	
+	$("#lbl-onn-mdc"+producto).hide();
+	$("#lbl-off-mdc"+producto).show();
+	$("#btn-onn-mdc"+producto).hide();
+	$("#btn-off-mdc"+producto).show();
+	
+	var id = "madechina-"+producto;	
+	MadechinaList[NumeroMadechina] = id;
+	NumeroMadechina+=1;
+	$("#lista-madechina").show();
+	$("#productos-madechina").html("");
+	jQuery.each( MadechinaList, function( i, valor ) {
+		if (valor != 'null'){
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .md-titulo").html();
+			var precio = $("#"+valor+" .md-precio").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-madechina").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='md-texto'><div class='md-titulo'>"+titulo+"</div><span class='md-precio'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+		}
+	});
+}
+function QuitarListaMadeChina(producto){
+	var existe = false;
+	TotalProducto-=1;
+	$("#total-producto").text(""+TotalProducto+"");
+
+	$("#lbl-onn-mdc"+producto).show();
+	$("#lbl-off-mdc"+producto).hide();
+	$("#btn-onn-mdc"+producto).show();
+	$("#btn-off-mdc"+producto).hide();
+	
+	var id = "madechina-"+producto;	
+	$("#productos-madechina").html("");
+	jQuery.each( MadechinaList, function( i, valor ) {
+		if (valor == id){
+			MadechinaList[i] = 'null';			
+		}
+	});
+	jQuery.each( MadechinaList, function( i, valor ) {
+		if (valor !='null'){
+			existe = true;
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .md-titulo").html();
+			var precio = $("#"+valor+" .md-precio").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-madechina").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='md-texto'><div class='md-titulo'>"+titulo+"</div><span class='md-precio'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+		}
+	});
+	if (existe == false){
+		$("#lista-madechina").hide();
+	}
+} 
+ 
+function ListaAliexpress(producto){
+	MostrarMensajeCarrito();
+	TotalProducto+=1;
+	$("#total-producto").text(""+TotalProducto+"");
+	
+	$("#lbl-onn-ali"+producto).hide();
+	$("#lbl-off-ali"+producto).show();
+	$("#btn-onn-ali"+producto).hide();
+	$("#btn-off-ali"+producto).show();
+	
+	var id = "aliexpress-"+producto;	
+	AliexpressList[NumeroAliexpress] = id;
+	NumeroAliexpress+=1;
+	$("#lista-aliexpress").show();
+	$("#productos-aliexpress").html("");
+	jQuery.each( AliexpressList, function( i, valor ) {
+		if (valor != 'null'){
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .ali-titulo").html();
+			var precio = $("#"+valor+" .ali-precio").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-aliexpress").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='ali-texto'><h3 class='ali-titulo'>"+titulo+"</h3><span class='ali-precio'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+		}
+	});
+}
+function QuitarListaAliexpress(producto){
+	var existe = false;
+	TotalProducto-=1;
+	$("#total-producto").text(""+TotalProducto+"");
+	
+	$("#lbl-onn-ali"+producto).show();
+	$("#lbl-off-ali"+producto).hide();
+	$("#btn-onn-ali"+producto).show();
+	$("#btn-off-ali"+producto).hide();
+	
+	var id = "aliexpress-"+producto;	
+	$("#productos-aliexpress").html("");
+	jQuery.each( AliexpressList, function( i, valor ) {
+		if (valor == id){
+			AliexpressList[i] = 'null';			
+		}
+	});
+	jQuery.each( AliexpressList, function( i, valor ) {
+		if (valor !='null'){
+			existe = true;
+			var imagen = $("#"+valor+" .sx-table-pic").html();
+			var titulo = $("#"+valor+" .ali-titulo").html();
+			var precio = $("#"+valor+" .ali-precio").html();
+			var url = $("#"+valor+" .link span").html();
+			
+			$("#productos-aliexpress").append("<div id='item-"+valor+"' class='lista-productos-seleccionados'><div class='sx-table-pic'>"+imagen+"</div><div class='ali-texto'><h3 class='ali-titulo'>"+titulo+"</h3><span class='ali-precio'>"+precio+"</span><div class='link' style='display:none;'>"+url+"</div></div><div class='cantidad-producto'><label>Cantidad: </label><input type='number' id='cantidad-"+valor+"' min='1' max='999' step='1' value='1'></div></div>");
+		}
+	});
+	if (existe == false){
+		$("#lista-aliexpress").hide();
+	}
+} 
+
  
  
  
