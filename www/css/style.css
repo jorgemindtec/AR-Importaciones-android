@@ -56,7 +56,16 @@ a {
     opacity: 0;
     z-index: -99;
 }
-
+.form-boton {
+    width: 120px;
+    padding: 5px 10px;
+    background: #0069b4;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+    border-width: 0;
+    margin-top: 15px;
+}
 /* ----- MENU ------------------- */
 #touchSideSwipe {
     background: white;
@@ -81,10 +90,11 @@ a {
     box-shadow: 3px 3px 5px #191919;
 }
 #touchSideSwipe #element-menu {
-    height: calc(100% - 235px);
+    height: calc(100% - 195px);
     padding-top: 20px;
     padding-bottom: 20px;
     background-image: url(../img/fondo-menu.png);
+    background-size: 100% 100%;
     color: white;
     font-weight: bold;
 }
@@ -375,6 +385,18 @@ div#logout label {
 /* -- */
 /* -- */
 /* ------- PANTALLA BUSCAR PRODUCTOS --------------------- */
+#GoTop {
+    background: rgba(0, 81, 152, 0.4);
+    border-radius: 10px;
+    width: 30px;
+    padding: 5px;
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 99;
+    cursor: pointer;
+}
 .fondo-productos {
     position: fixed;
     top: 0;
@@ -811,7 +833,108 @@ h5.sx-title.sx-title-inline span {
 #Ebay span.s-item__hotness.s-item__itemHotness {
     display: none;
 }*/
+#Alibaba #page {
+    padding: 20px 30px;
+    margin: 0;
+}
+#Alibaba .product-item {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px #1070ba solid;
+}
+#Alibaba .sx-table-pic {
+    width: 140px;
+    padding: 5px 0;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+#Alibaba .sx-table-pic img {
+    max-width: 140px;
+}
+#Alibaba .product-title, #Alibaba .product-moq, #Alibaba .product-price.product-fob-wrap {
+    padding: 5px;
+}
+#Alibaba .list-refine {
+    display: none;
+}
+#Alibaba .active-step-img {
+    display: none !important;
+}
+#Alibaba .recommend.grid-item.more {
+    display: none;
+}
+#Alibaba .bicon-wrap {
+    display: none;
+}
+#Alibaba .action-wrap {
+    display: none;
+}
+.product-item h3.product-title {
+    color: #1070ba;
+    font-weight: bold;
+}
+.wholesale-icon-wrapper {
+    display: none;
+}
 
+#MadeChina .products-wrap.cf.J-items-wrap {
+    padding: 20px 30px;
+    margin: 0;
+}
+#MadeChina .list-item {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px #1070ba solid;
+}
+#MadeChina .sx-table-pic {
+    width: 140px;
+    padding: 5px 0;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+#MadeChina .sx-table-pic img {
+    max-width: 140px;
+}
+#MadeChina .md-texto {
+    padding: 5px;
+    font-size: 15px;
+}
+#MadeChina .md-titulo {
+    color: #1070ba;
+    font-weight: bold;
+}
+
+#Aliexpress ul {
+    padding: 20px 30px;
+    margin: 0;
+}
+#Aliexpress ul li {
+    list-style: none;
+}
+#Aliexpress .sx-table-pic {
+    width: 140px;
+    padding: 5px 0;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+}
+#Aliexpress .sx-table-pic img {
+    max-width: 140px;
+}
+#Aliexpress .ali-texto {
+    padding: 5px;
+    font-size: 15px;
+}
+#Aliexpress .ali-titulo {
+    color: #1070ba;
+    font-weight: bold;
+}
 /* -- */
 /* -- */
 /* ------------ PANTALLA LISTA DE PRODUCTOS ----------------*/
@@ -851,14 +974,16 @@ div#btn-regresar img {
     margin: 0 auto;
     color: white;
     margin-top: 20px;
+    padding: 2px 0;
 }
 .cantidad-producto input {
-    background: none;
+    /* background: none; */
     border: none;
-    color: white;
+    /* color: white; */
     font-weight: bold;
     font-size: 18px;
     text-align: center;
+    border-radius: 5px;
 }
 .cantidad-producto label {
     font-size: 16px;
@@ -903,14 +1028,11 @@ div#btn-regresar img {
     margin: 0 auto;
 }
 #productos-amazon .sx-table-pic img {
-    /*max-height: 80px !important;*/
     max-width: 80px;
     width: auto;
     height: auto;
 }
 #productos-amazon .sx-table-detail {
-    /* display: table-cell; */
-    /* vertical-align: middle; */
     padding: 0 5px;
 }
 #productos-amazon .sx-table-detail h5 {
@@ -918,23 +1040,76 @@ div#btn-regresar img {
     margin-top: 0px;
 }
 #productos-ebay .s-item__image-section {
-    /* display: table-cell; */
-    /* vertical-align: middle; */
     width: 80px;
-    /* text-align: center; */
     margin: 0 auto;
 }
 #productos-ebay .s-item__image-section img {
-   /*max-height: 80px !important;*/
     max-width: 80px;
     width: auto;
     height: auto;
 }
 #productos-ebay .s-item__info {
-    /* display: table-cell; */
-    /* vertical-align: middle; */
     padding: 0 5px;
 }
+#productos-alibaba .sx-table-pic {
+    width: 80px;
+    margin: 0 auto;
+}
+#productos-alibaba .sx-table-pic img {
+    max-width: 80px;
+    width: auto;
+    height: auto;
+}
+#productos-alibaba .s-item__info {
+    padding: 0 5px;
+}
+#productos-alibaba h3.product-title {
+    color: #1070ba;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+#productos-madechina .sx-table-pic {
+    width: 80px;
+    margin: 0 auto;
+}
+#productos-madechina .sx-table-pic img {
+    max-width: 80px;
+    width: auto;
+    height: auto;
+}
+#productos-madechina .md-texto {
+    padding: 0 5px;
+}
+#productos-madechina .md-titulo {
+    color: #1070ba;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+#productos-aliexpress .sx-table-pic {
+    width: 80px;
+    margin: 0 auto;
+}
+#productos-aliexpress .sx-table-pic img {
+    max-width: 80px;
+    width: auto;
+    height: auto;
+}
+#productos-aliexpress .ali-texto {
+    padding: 0 5px;
+}
+#productos-aliexpress .ali-titulo {
+    color: #1070ba;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+
+
 input.form-boton {
     background: #1070ba;
     border: none;
@@ -964,74 +1139,7 @@ input.form-boton {
     border: 1px #0069b4 solid;
     color: white;
 }*/
-#Alibaba #page {
-    padding: 20px 30px;
-    margin: 0;
-}
-#Alibaba .product-item {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    margin-bottom: 25px;
-    padding-bottom: 10px;
-    border-bottom: 2px #1070ba solid;
-}
-#Alibaba .sx-table-pic {
-    width: 140px;
-    padding: 5px 0;
-    position: relative;
-    margin: 0 auto;
-    text-align: center;
-}
-#Alibaba .sx-table-pic img {
-    max-width: 140px;
-}
-#Alibaba .product-title, #Alibaba .product-moq, #Alibaba .product-price.product-fob-wrap {
-    padding: 5px;
-}
-#Alibaba .list-refine {
-    display: none;
-}
-#Alibaba .active-step-img {
-    display: none !important;
-}
-#Alibaba .recommend.grid-item.more {
-    display: none;
-}
-#Alibaba .bicon-wrap {
-    display: none;
-}
-#Alibaba .action-wrap {
-    display: none;
-}
 
-#MadeChina .products-wrap.cf.J-items-wrap {
-    padding: 20px 30px;
-    margin: 0;
-}
-#MadeChina .list-item {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    margin-bottom: 25px;
-    padding-bottom: 10px;
-    border-bottom: 2px #1070ba solid;
-}
-#MadeChina .sx-table-pic {
-    width: 140px;
-    padding: 5px 0;
-    position: relative;
-    margin: 0 auto;
-    text-align: center;
-}
-#MadeChina .sx-table-pic img {
-    max-width: 140px;
-}
-#MadeChina .md-texto {
-    padding: 5px;
-}
-#MadeChina .md-titulo {
-    color: #1070ba;
-    font-weight: bold;
-}
 /* --------------------- FOTOGRAFIA ------------- */
 p.titulo-foto {
     margin-top: 0px;
@@ -1067,13 +1175,23 @@ p.titulo-foto {
     overflow: hidden;
     margin: 10px 0;
 }
-.eliminar-foto {
+/*.eliminar-foto {
     position: absolute;
     right: 10px;
     top: 0px;
     background: #d01c1c;
     width: 35px;
     height: auto;
+}*/
+.eliminar-foto {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    background: rgb(16, 112, 186);
+    width: 27px;
+    height: auto;
+    border-bottom-left-radius: 10px;
+    padding: 5px;
 }
 .selected-foto {
     width: 100%;
@@ -1110,7 +1228,9 @@ div#selected-foto {
     position: absolute;
     width: 40px !important;
     height: 40px !important;
-    background: #d01c1c;
+    background: rgb(16, 112, 186);
+    border-bottom-left-radius: 10px;
+    /*background: #d01c1c;*/
     right: 0;
     top: 0;
      z-index: 9999;
