@@ -6,6 +6,10 @@
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="26" />
+
+<config-file platform="android" parent="/manifest" mode="merge">
+    <application android:debuggable="false"/>
+</config-file>
 	
     <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" />
     <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.2.0" />
