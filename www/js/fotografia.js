@@ -29,8 +29,8 @@ function CamaraImagen(imageData) {
 	  var close = "img"+fotoNum+"";
 	  var zoom = "zoom"+fotoNum+"";
 	  var closezoom = "imgz"+fotoNum+"";
-	  $("#contenedor-fotos").append("<div id='"+contenedor+"'class='imagen-camara'><img id='"+close+"' class='eliminar-foto' src='img/close.png' onclick='EliminarFoto("+fotoNum+")'><img id='"+foto+"' class='selected-foto' style='width:100%' src='' onclick='VerImagen("+fotoNum+")'></div>");
-      $("#selected-foto").append("<div id='"+zoom+"img' style='display:none;'><img id='"+closezoom+"' class='cerrar-zoom' src='img/close.png' onclick='CerrarZoom("+fotoNum+")'> <img id='"+zoom+"' class='imagen-zoom' src=''></div>");
+	  $("#contenedor-fotos").append("<div id='"+contenedor+"'class='imagen-camara'><img id='"+close+"' class='eliminar-foto' src='img/eliminar.png' onclick='EliminarFoto("+fotoNum+")'><img id='"+foto+"' class='selected-foto' style='width:100%' src='' onclick='VerImagen("+fotoNum+")'></div>");
+      $("#selected-foto").append("<div id='"+zoom+"img' style='display:none;'><img id='"+closezoom+"' class='cerrar-zoom' src='img/volver2.png' onclick='CerrarZoom("+fotoNum+")'> <img id='"+zoom+"' class='imagen-zoom' src=''></div>");
 	  
       // Show the captured photo
 	  $("#"+foto).attr("src",imageData);
@@ -66,11 +66,11 @@ function LibreriaImagen(imageURI) {
 	  var zoom = "zoom"+fotoNum+"";
 	  var input = "input"+fotoNum+"";
 	  var closezoom = "imgz"+fotoNum+"";
-	  $("#contenedor-fotos").append("<div id='"+contenedor+"'class='imagen-camara'><img id='"+close+"' class='eliminar-foto' src='img/close.png' onclick='EliminarFoto("+fotoNum+")'><img id='"+foto+"' class='selected-foto' style='width:100%' src='' onclick='VerImagen("+fotoNum+")'></div>");
-      $("#selected-foto").append("<div id='"+zoom+"img' style='display:none;'><img id='"+closezoom+"' class='cerrar-zoom' src='img/close.png' onclick='CerrarZoom("+fotoNum+")'> <img id='"+zoom+"' class='imagen-zoom' src=''></div>");
+	  $("#contenedor-fotos").append("<div id='"+contenedor+"'class='imagen-camara'><img id='"+close+"' class='eliminar-foto' src='img/eliminar.png' onclick='EliminarFoto("+fotoNum+")'><img id='"+foto+"' class='selected-foto' style='width:100%' src='' onclick='VerImagen("+fotoNum+")'></div>");
+      $("#selected-foto").append("<div id='"+zoom+"img' style='display:none;'><img id='"+closezoom+"' class='cerrar-zoom' src='img/volver2.png' onclick='CerrarZoom("+fotoNum+")'> <img id='"+zoom+"' class='imagen-zoom' src=''></div>");
       
 	  //**********************
-	  $("#input-foto").append("<input type='file' name='"+input+"' value='data:image/jpeg;base64,"+imageURI+"'>");
+	 // $("#input-foto").append("<input type='file' name='"+input+"' value='data:image/jpeg;base64,"+imageURI+"'>");
 	  //**********************
 	  
 	  $("#"+foto).attr("src",imageURI);
@@ -104,84 +104,4 @@ function VerImagen(foto){
 function CerrarZoom(foto){	
 	$("#Zoom").hide();
 	$("#zoom"+foto+"img").hide();
-}
-
-
-        
-
-
-
-// ********************************** ENVIAR CORREO **********************************
-function ValidarFormFotos(){
-	var hasError = false; 
-	var nombre = $("#FotoNombre").val();
-	var telefono = $("#FotoTelefono").val();
-	var correo = $("#FotoEmail").val();
-	var mensaje = $("#FotoMensaje").val();
-	
-	var imagen = $("#input1").val();
-	
-	//alert(imagen);
-	if($.trim(nombre) == "") {
-		$("#error-FotoNombre").show();
-		//$("#FotoNombre").focus();
-		hasError = true;
-	}
-	else{
-		$("#error-FotoNombre").hide();
-	}
-	if($.trim(telefono) == "") {
-		$("#error-FotoTelefono").show();
-		//$("#FotoTelefono").focus();
-		hasError = true;
-	}
-	else{
-		$("#error-FotoTelefono").hide();
-	}
-	if($.trim(correo) == "") {
-		$("#error-FotoEmail").show();
-		//$("#FotoEmail").focus();
-		hasError = true;
-	}
-	else{
-		$("#error-FotoEmail").hide();
-	}
-	if($.trim(mensaje) == "") {
-		$("#error-FotoMensaje").show();
-		//$("#FotoMensaje").focus();
-		hasError = true;
-	}
-	else{
-		$("#error-FotoMensaje").hide();
-	}
-	
-//	form DAta -------------------------------------------------*********************
-
-	if(hasError == false) {
-		var datos = {
-			"nombre" : nombre,
-			"telefono" : telefono,
-			"correo" : correo,
-			"mensaje" : mensaje,
-			"imagen" : imagen
-		};
-		$.ajax({
-			data : datos,
-			url: "http://ar-pruebas.mindtec.me/form-fotos.php",
-			type:"POST",
-			success: function(){
-				alert("El mensaje ah sido enviado con exito.");
-			},
-			error :function(){
-				alert("Ocurrio un error, por favor intentar mas tarde.");
-				return false;
-			},
-			complete : function(){
-				//alert("exito");
-				//$("#form-foto")[0].reset();
-				//menu(7);
-			}
-		});
-	}	
-	return false;
 }
