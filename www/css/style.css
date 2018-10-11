@@ -938,6 +938,15 @@ h5.sx-title.sx-title-inline span {
 /* -- */
 /* -- */
 /* ------------ PANTALLA LISTA DE PRODUCTOS ----------------*/
+img.eliminarlista.producto {
+    background: #bd3b3b;
+    width: 25px;
+    position: absolute;
+    right: 0px;
+    top: -5px;
+    padding: 5px;
+    border-top-right-radius: 15px;
+}
 div#btn-regresar img {
     background: #1070ba;
     border-radius: 50%;
