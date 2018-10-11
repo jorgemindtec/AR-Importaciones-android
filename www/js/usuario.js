@@ -1,5 +1,6 @@
 
 // ********************************** ENVIAR CORREO **********************************
+var IdUsuarioLogin = "";
 function IniciarSesion(){
 	var hasError = false; 
 	var usuario = $("#SesionUsuario").val();
@@ -28,23 +29,47 @@ function IniciarSesion(){
 		$.ajax({
 			data : datos,
 			url: "http://ar-pruebas.mindtec.me/usuario.php",
-			type: "post",
+			type: "POST",
 			success: function(response){
-				$("#form-inicio-sesion")[0].reset();
-				$(".boton-sesion-inicio").hide();
-				$("#usuario-sesion").html(response);
-				$("#login-usuario").show();
-				$("#resultado").html("Bienvenido "+response);
-				$("#resultado").show();
-				setTimeout(function() {
-					$("#resultado").hide();
-					$("#sesion-inicio").hide();
-					menu(1);
-					$("#logout").show();
-				}, 1500);
+				if (response==""){
+					$("#loginResponse").html("Error de inicio de sesión. El usuario o la contraseña están incorrectos.");
+					$("#loginResponse").show();		
+					setTimeout(function() {
+						$("#loginResponse").hide();
+					}, 3000);
+				}
+				else {
+					$("#resultado").html(response);
+					
+					$("#form-inicio-sesion")[0].reset();
+					$(".boton-sesion-inicio").hide();
+					$("#login-usuario").show();					
+					$("#usuario-sesion").html($("#CodUsuario").val());
+					$("#loginResponse").html("Bienvenido "+$("#CodUsuario").val());
+					$("#loginResponse").show();
+					$("#menu08").show();
+					
+					IdUsuarioLogin = $("#IdUsuario").val();
+					$("#form-lista-nombre").val($("#NombreUsuario").val());
+					$("#form-lista-telefono").val($("#TelefonoUsuario").val());
+					$("#form-lista-email").val($("#EmailUsuario").val());
+					$("#form-nombre").val($("#NombreUsuario").val());
+					$("#form-telefono").val($("#TelefonoUsuario").val());
+					$("#form-email").val($("#EmailUsuario").val());
+					$("#FotoNombre").val($("#NombreUsuario").val());
+					$("#FotoTelefono").val($("#TelefonoUsuario").val());
+					$("#FotoEmail").val($("#EmailUsuario").val());
+						
+					setTimeout(function() {
+						$("#sesion-inicio").hide();
+						menu(1);
+						$("#logout").show();
+						$("#loginResponse").hide();
+					}, 1500);
+				}
 			},
 			error :function(response){
-				alert("Ocurrio un error, por favor intentar mas tarde. "+ response);
+				alert("Ocurrio un error, por favor intentar mas tarde.");
 				return false;
 			}
 		});
@@ -127,8 +152,23 @@ function LogOut(){
 	$("#sesion-inicio").show();
 	$(".boton-sesion-inicio").show();
 	menu(1);
+	$("#resultado").html("");
 	$("#login-usuario").hide();
 	$("#logout").hide();
+	$("#menu08").hide();
+	
+	IdUsuarioLogin = "";
+	$("#usuario-sesion").html("");
+	$("#loginResponse").html("");
+	$("#form-lista-nombre").val("");
+	$("#form-lista-telefono").val("");
+	$("#form-lista-email").val("");
+	$("#form-nombre").val("");
+	$("#form-telefono").val("");
+	$("#form-email").val("");
+	$("#FotoNombre").val("");
+	$("#FotoTelefono").val("");
+	$("#FotoEmail").val("");
 }
 function formLogin(){
 	$("#formulario-registro-usuario").hide();
