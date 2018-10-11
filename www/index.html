@@ -66,6 +66,7 @@
 		var Indice_Aliexpress = 0;
 		
 		CrearBD();
+		ClearBD();
 		
 		document.addEventListener("deviceready", onDeviceReady, false);
 		
@@ -129,7 +130,8 @@
 				<li id="menu04" onclick="menu(4);"><img src="img/m-carrito2.png"> <label>Mi Carrito</label></li>
 				<li id="menu05" onclick="menu(5);"><img src="img/imp.png"> <label>Como Importar</label></li>
 				<li id="menu06" onclick="menu(6);"><img src="img/contacto-menu.png"> <label>Contacto</label></li>
-				<li id="menu06" onclick="menu(7);"><img src="img/m-camera.png"> <label>Tomar Foto a Producto</label></li>
+				<li id="menu07" onclick="menu(7);"><img src="img/m-camera.png"> <label>Tomar Foto a Producto</label></li>
+				<li id="menu08" onclick="menu(8);"><img src="img/m-camera.png"> <label>Mis Importaciones</label></li>
 			</ul>
 			<div id="logout" style="display:none;"><label onclick="LogOut()">Cerrar Sesión</label></div>
 		</div>
@@ -765,7 +767,7 @@ function topFunction() {
 							<span id="error-SesionPass" style="color: #00a8e7;display: none;">* Favor de ingresar la Contraseña</span>
 						</div>
 						<input type="button" class="form-boton" onclick="IniciarSesion()" value="Iniciar Sesión">
-						<div><span id="resultado" style="display:none;"></span></div>
+						<div><div id="resultado" style="display:none;"></div><div id="loginResponse"></div></div>
 					</form>
 				</div>
 				
