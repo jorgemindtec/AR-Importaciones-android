@@ -15,6 +15,8 @@ function clean(){
 	$("#menu06").removeClass( "m-active" );
 	$("#pantalla-foto").hide();
 	$("#menu07").removeClass( "m-active" );
+	$("#pantalla-importaciones").hide();
+	$("#menu08").removeClass( "m-active" );
     touchSideSwipe.tssClose();
 }
 function menu(dato){
@@ -62,6 +64,12 @@ function menu(dato){
 		clean();
 		$("#menu07").addClass( "m-active" );
 		$("#pantalla-foto").show();
+	}
+	if (dato==8){
+		clean();
+		$("#menu0").addClass( "m-active" );
+		$("#pantalla-importaciones").show();
+		Reporte();
 	}
 	
 }
