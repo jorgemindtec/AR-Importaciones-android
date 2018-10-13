@@ -1,7 +1,12 @@
 // ********************************** ENVIAR CORREO LISTA PRODUCTOS **********************************
-function ValidarFormLista(){
-	
-				UpdateBD();
+
+var ebay = "";
+var amazon = "";
+var alibaba = "";
+var madechina = "";
+var aliexpress = "";
+function ValidarFormLista(){	
+				
 	Lista_Ebay = [] ;
 	Indice_Ebay = 0;
 	Lista_Amazon = [];
@@ -17,15 +22,21 @@ function ValidarFormLista(){
 	var ProductosAmazon = "";
 	var ProductosAlibaba = "";
 	var ProductosMadechina = "";
-	var ProductosAliexpress = "";
+	var ProductosAliexpress = "";	
 	
+	ebay = $('#productos-ebay .lista-productos-seleccionados').length;
+	amazon = $('#productos-amazon .lista-productos-seleccionados').length;
+	alibaba = $('#productos-alibaba .lista-productos-seleccionados').length;
+	madechina = $('#productos-madechina .lista-productos-seleccionados').length;
+	aliexpress = $('#productos-aliexpress .lista-productos-seleccionados').length;
+	
+	if(ebay==0 && amazon==0 && alibaba==0 && madechina==0 && aliexpress==0){
+		return false;
+	}
+	else {
+		UpdateBD();
+		
 	var producto = "";
-	var ebay = $('#productos-ebay .lista-productos-seleccionados').length;
-	var amazon = $('#productos-amazon .lista-productos-seleccionados').length;
-	var alibaba = $('#productos-alibaba .lista-productos-seleccionados').length;
-	var madechina = $('#productos-madechina .lista-productos-seleccionados').length;
-	var aliexpress = $('#productos-aliexpress .lista-productos-seleccionados').length;
-	
 	if (ebay > 0){		
 		jQuery.each( EbayList, function( i, valor ) {
 			if (valor != 'null'){
@@ -141,7 +152,7 @@ function ValidarFormLista(){
 			alert(valor);
 		}
 	});*/
-	/*
+	
 	ProductosEbay = JSON.stringify(Lista_Ebay);
 	ProductosAmazon = JSON.stringify(Lista_Amazon);
 	ProductosAlibaba = JSON.stringify(Lista_Alibaba);
@@ -244,8 +255,9 @@ function ValidarFormLista(){
 				BuscarProducto();
 			}
 		});
-	}*/
+	}
 	return false;
+	}
 }
 
 // ********************************** ENVIAR CORREO CONTACTO **********************************
