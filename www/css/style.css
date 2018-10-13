@@ -207,9 +207,6 @@ label.pasos {
 /* -- */
 /* -- */
 /* ----- PANTALLA INICIO ------- */
-#inicio {
-    margin: 20px 0;
-}
 #fondo {
     position: fixed;
     top: 0;
@@ -1287,4 +1284,26 @@ form#form-foto .form-lista.mensaje {
     border-width: 0;
     /* border-style: outset; */
     margin-top: 15px;
+}
+
+/* ********** IMPORTACIONES ****************** */
+#MisImportaciones {
+    background: rgba(216, 216, 216, 0.4);
+    border-radius: 15px;
+}
+#MisImportaciones table {
+    width: 100%;
+    padding: 15px;
+    color: black;
+    word-break: break-word;
+}
+#MisImportaciones table tbody {
+    background: white;
+}
+#MisImportaciones table tr td {
+    display: block;
+    border-spacing: 0px;
+}
+span.img-importaciones img {
+    width: 80px;
 }
