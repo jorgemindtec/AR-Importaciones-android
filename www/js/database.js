@@ -6,8 +6,6 @@ var displayName = 'AR';
 var maxSize = 500000000;
 
 function CrearBD(){
-	
-//alert("DEBUGGING: we are in the onBodyLoad() function");
  if (!window.openDatabase) {
    alert('Error con la Base de Datos');
    return;
@@ -30,25 +28,47 @@ function nullHandler(){}
 
 function borrar(){
 	db.transaction(function(transaction) {transaction.executeSql('DROP TABLE IF EXISTS ListaBD');});
-	
 }
+
 function Reporte() {
  if (!window.openDatabase) {
    alert('Error con la Base de Datos');
   return;
  }
- $('#bd').html('');
- $('#bd').append('<tr><th>'+"1"+'</th><th>'+"2"+'</th><th>'+"3"+'</th><th>'+"4"+'</th></tr>');
+ $('#Reporte').html("");
+ var nuevalista = 0;
+ var fechanueva = "";
+ //Usuario,Nombre,Telefono,Email,Mensaje,Tienda,IdProducto,Producto,Imagen,Precio,Enlace,Cantidad,Fecha
  db.transaction(function(transaction) {
-   transaction.executeSql('SELECT rowid,Usuario,Tienda,IdProducto,Producto,Precio,Enlace,Cantidad,Fecha FROM ListaBD;', [],
-     function(transaction, result) {
+    transaction.executeSql('SELECT * FROM ListaBD WHERE Usuario = ? Order by Fecha', [IdUsuarioLogin],
+    function(transaction, result) {
       if (result != null && result.rows != null) {
+          var row = result.rows.item(0);
         for (var i = 0; i < result.rows.length; i++) {
-          var row = result.rows.item(i);
-          $('#bd').append('<tr id="'+row.rowid+'"><td>' + row.Usuario + '</td><td>' + row.IdProducto+ '</td><td>' + row.Producto+ '</td><td>' + row.Fecha+'</td></tr>');
-        } 
+          var row2 = result.rows.item(i);
+			if(nuevalista == 0){
+				fechanueva = row2.Fecha;
+				$('#Reporte').append('<tr><td colspan=2><b>Fecha:</b> '+row2.Fecha+'</td></tr>');
+				$('#Reporte').append('<tr><td colspan=2><b>Nombre:</b> '+row2.Nombre+'</td></tr>');
+				$('#Reporte').append('<tr><td><span style="width: 50%;display: inline-table;"><b>Telefono:</b> '+row2.Telefono+'</span><span style="width: 50%;display: inline-table;"><b>Email:</b> '+row2.Email+'</span></td></tr>');
+				$('#Reporte').append('<tr><td colspan=2><b>Mensaje:</b> '+row2.Mensaje+'</td></tr>');
+				nuevalista += 1;
+			}
+			else if(fechanueva != row2.Fecha){
+				fechanueva = row2.Fecha;
+				$('#Reporte').append('<tr style="height: 10px;background: rgba(216, 216, 216, 0.4);"><td colspan=2></td></tr>');
+				$('#Reporte').append('<tr><td colspan=2><b>Fecha:</b> '+row2.Fecha+'</td></tr>');
+				$('#Reporte').append('<tr><td colspan=2><b>Nombre:</b> '+row2.Nombre+'</td></tr>');
+				$('#Reporte').append('<tr><td><span style="width: 50%;display: inline-table;"><b>Telefono:</b> '+row2.Telefono+'</span><span style="width: 50%;display: inline-table;"><b>Email:</b> '+row2.Email+'</span></td></tr>');
+				$('#Reporte').append('<tr><td colspan=2><b>Mensaje:</b> '+row2.Mensaje+'</td></tr>');				
+			}
+          $('#Reporte').append('<tr><td><span class="producto-importaciones" style="width: calc(100% - 90px);display: inline-table;vertical-align: top;"><div><b>Tienda:</b> '+row2.Tienda+'</div><b>Producto:</b> '+row2.Producto+'</span><span class="img-importaciones" style="width: 80px;display: inline-table;padding-left: 5px;"><img src='+row2.Imagen+'></span></td></tr>');
+          $('#Reporte').append('<tr><td colspan=2><span style="width: 50%;display: inline-table;"><b>Cantidad:</b> '+row2.Cantidad+'</span><span style="width: 50%;display: inline-table;"><b>Precio:</b> '+row2.Precio+'</span></td></tr>');			
+		  $('#Reporte').append('<tr style="height: 10px;background: rgba(216, 216, 216, 0.4);"><td colspan=2></td></tr>');
+		}
+		
       }
-     },errorHandler);
+    },errorHandler);
  },errorHandler,nullHandler);
 
  return;
@@ -78,140 +98,72 @@ function ClearBD(){
 	});
 }
 
-function UpdateBD(){
-	if (IdUsuarioLogin == ""){
-		alert("no usuario "+IdUsuarioLogin)
-	}
-	else{
-		alert("usuario "+IdUsuarioLogin);
-	}
+	var resultado = "";
+	var row = "";
+	var upnombre = "";
+	var uptelefono = "";
+	var upcorreo = "";
+	var upmensaje = "";
+	var idproducto = "";
+	var qtproducto = "";	
+	var d = "";
+	var dateupdate = "";
 	
-}
-
-
-/* ************************** UPDATE
-function UpdateValueToDB() {
- if (!window.openDatabase) {
-   alert('Error con la Base de Datos');
-   return;
- }
-var kmf=document.getElementById("kilometrajefinal").value;
-var viaje=document.getElementById("viajedt").value;
-var kini="";
-var litros="";
-var valor="";
-var rendimiento="";
-db.transaction(function(transaction) {
-   transaction.executeSql('SELECT rowid,Litros,KilometrajeInicial FROM BDViajes WHERE rowid='+viaje+';', [],
-     function(transaction, result) {
-      if (result != null && result.rows != null) {
-        for (var i = 0; i < result.rows.length; i++) {
-          var row = result.rows.item(i);
-		  kini = row.KilometrajeInicial;
-		  litros = row.Litros;
-		  valor = (kmf-kini)/litros;
-		  rendimiento = parseFloat(Math.round(valor * 100) / 100).toFixed(2);
-		  
-        }
-db.transaction(function(transaction) {transaction.executeSql('UPDATE BDViajes SET KilometrajeFinal = ?,Rendimiento = ? WHERE rowid = ?',[kmf,rendimiento,viaje],nullHandler,errorHandler);});
-      }
-     },errorHandler);
- },errorHandler,nullHandler);
- 
-
-document.getElementById("viajedt").value='';
-document.getElementById("kilometrajefinal").value='';
-alert("El viaje ha sido finalizado");
-// submenu(1);
- return;
-}*/
-
-
-
-
-
-/*
-function ShowValueToDB() {
- if (!window.openDatabase) {
-   alert('Error con la Base de Datos');
-   return;
- } 
- $('#viajedt').html('');
- db.transaction(function(transaction) {
-   transaction.executeSql('SELECT rowid,Ruta FROM BDViajes WHERE kilometrajefinal='+"''"+';', [],
-     function(transaction, result) {
-      if (result != null && result.rows != null) {
-        for (var i = 0; i < result.rows.length; i++) {
-          var row = result.rows.item(i);
-          $('#viajedt').append('<option value="'+row.rowid+'">' + row.Ruta + '</option>');
-        } 
-      }
-     },errorHandler);
- },errorHandler,nullHandler);
-
- return;
-}
-
-function Reporte() {
- if (!window.openDatabase) {
-   alert('Error con la Base de Datos');
-  return;
- }
- $('#Datos').html('');
- $('#Datos').append('<tr class="encabezado"><th>'+"RUTA"+'</th><th style="width: 60px;">'+"LITROS"+'</th><th>'+"KM.INICIAL"+'</th><th>'+"KM.FINAL"+'</th><th style="width: 60px;">'+"FECHA"+'</th></tr>');
- db.transaction(function(transaction) {
-   transaction.executeSql('SELECT rowid,Ruta,Litros,KilometrajeInicial,KilometrajeFinal,Rendimiento,Fecha FROM BDViajes;', [],
-     function(transaction, result) {
-      if (result != null && result.rows != null) {
-        for (var i = 0; i < result.rows.length; i++) {
-          var row = result.rows.item(i);
-          $('#Datos').append('<tr id="'+row.rowid+'" class="dt" onclick="calcular('+row.rowid+')"><td>' + row.Ruta + '</td><td>' + row.Litros+ '</td><td>' + row.KilometrajeInicial+ '</td><td>' + row.KilometrajeFinal + '</td><td>' + row.Fecha+'</td></tr>');
-        } 
-      }
-     },errorHandler);
- },errorHandler,nullHandler);
-
- return;
-}
-
-var select=0;
-var c=false
-function calcular(viaje){
-	if(select!=viaje){
-		if(c==false){
-			select=viaje;
-			document.getElementById(viaje).className="datos";
-			c=true;
-		}
-		else {
-			document.getElementById(select).className="dt";
-			select=viaje;
-			document.getElementById(viaje).className="datos";
-		}
+function UpdateBD(){
+	if (IdUsuarioLogin != ""){ //usuario logeado
+		 if (!window.openDatabase) {
+		   alert('Error con la Base de Datos');
+		   return;
+		 }
+//Usuario,Nombre,Telefono,Email,Mensaje,Tienda,IdProducto,Producto,Imagen,Precio,Enlace,Cantidad,Fecha
+//["","","","","","Ebay",id,titulo,img,precio,url,1,Fecha]
+		
+		 upnombre = $("#form-lista-nombre").val();
+		 uptelefono = $("#form-lista-telefono").val();
+		 upcorreo = $("#form-lista-email").val();
+		 upmensaje = $("#form-lista-mensaje").val();
+		//alert(mensaje);
+		 d = new Date();
+		 dateupdate = d.getDate() + "-" + (d.getMonth() +1) + "-" + d.getFullYear();
+		 
+		Buscar();
 	}
- if (!window.openDatabase) {
-   alert('Error con la Base de Datos');
-  return;
- }
- var kmi=0;
- var kmf=0;
- var ltr=0;
- var rend=0;
- $('#rendimientolitros').html('');
- 
+}	
+function Buscar(){
+	var contadorProducto = 0;
 db.transaction(function(transaction) {
-   transaction.executeSql('SELECT rowid,Magna,Premium,Diesel,Litros,Combustible,KilometrajeInicial,KilometrajeFinal,Rendimiento FROM BDViajes WHERE rowid ='+viaje+';', [],
-     function(transaction, result) {
-      if (result != null && result.rows != null) {
-        for (var i = 0; i < result.rows.length; i++) {
-          var row = result.rows.item(i);
-		  var rend = row.Rendimiento;
-		  document.getElementById("rendimientolitros").value = rend +' km x Litro';
-        }
-      }
-     },errorHandler);
- },errorHandler,nullHandler);
- 
- return;
+   transaction.executeSql('SELECT * FROM ListaBD WHERE Usuario = ? ', [""],
+		function(transaction, result) {
+			if (result != null && result.rows != null) {
+				resultado = result.rows.length;
+				row = result.rows.item(contadorProducto);
+				idproducto = row.IdProducto;
+				qtproducto = $("#cantidad-"+row.IdProducto).val();
+			}			
+		},errorHandler);
+},errorHandler,Actualizar);
 }
-*/
+function Actualizar(){
+	if (resultado > 0){
+		db.transaction(function(tx) {
+			tx.executeSql('UPDATE ListaBD SET Usuario = ?, Nombre = ?, Telefono = ?, Email = ?, Mensaje = ?, Cantidad = ? WHERE Usuario = ? and IdProducto = ?',
+						[IdUsuarioLogin,upnombre,uptelefono,upcorreo,upmensaje,qtproducto,"",idproducto],nullHandler,errorHandler);
+		});
+		resultado-=1;
+	}
+	if (resultado > 0){
+		Buscar();
+	}
+}
+/*function Actualizar(){
+	if (resultado > 0){
+		db.transaction(function(tx) {
+			tx.executeSql('UPDATE ListaBD SET Usuario = ?, Cantidad = ? WHERE Usuario = ? and IdProducto = ?',
+						[IdUsuarioLogin,qtproducto,"",idproducto],nullHandler,errorHandler);
+		});
+		resultado-=1;
+	}
+	if (resultado > 0){
+		Buscar();
+	}
+}*/
