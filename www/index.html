@@ -28,7 +28,7 @@
     <!--<meta name="msapplication-tap-highlight" content="no" />-->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <meta http-equiv="Content-Security-Policy" content=" default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src * " />
 
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script src="js/jquery-3.3.1.js" type="text/javascript"></script>
@@ -131,7 +131,7 @@
 				<li id="menu05" onclick="menu(5);"><img src="img/imp.png"> <label>Como Importar</label></li>
 				<li id="menu06" onclick="menu(6);"><img src="img/contacto-menu.png"> <label>Contacto</label></li>
 				<li id="menu07" onclick="menu(7);"><img src="img/m-camera.png"> <label>Tomar Foto a Producto</label></li>
-				<li id="menu08" onclick="menu(8);"><img src="img/m-camera.png"> <label>Mis Importaciones</label></li>
+				<li id="menu08" onclick="menu(8);" style="display:none;"><img src="img/m-lista.png"> <label>Mis Importaciones</label></li>
 			</ul>
 			<div id="logout" style="display:none;"><label onclick="LogOut()">Cerrar Sesión</label></div>
 		</div>
@@ -591,9 +591,7 @@ function topFunction() {
 					</form>
 				</div>
 				<!--<div onclick="CrearBD()">crear</div>
-				<div onclick="borrar()">reset</div>
-				<div onclick="Reporte()">Reporte</div>
-				<table id="bd"></table>-->
+				<div onclick="borrar()">reset</div>-->
 			</div>
 			
 		</div>
@@ -807,6 +805,24 @@ function topFunction() {
 				
 			</div>
 		</div>
+<!-- PANTALLA MIS IMPORTACIONES ---------------------------------------------------------------------- -->
+		<div id="pantalla-importaciones" style="display:none;">
+			<div class="fondo-productos"></div>
+			<div class="content-header">
+				<div class="header"> 
+					<label class="titulo-pantalla">Mis Importaciones</label>
+				</div>
+			</div>
+			<div class="after-header">
+			</div>
+			<div class="contenedor">
+				<div id="MisImportaciones">
+					<table id="Reporte" class="contenido-importaciones"></table>
+				</div>				
+			</div>
+		</div>
+
+
 <!-- onclick="ValidarFormFotos()" ------------------------------------------------------------------------------------------------------------------------- -->
 	
     <script type="text/javascript" src="cordova.js"></script>
