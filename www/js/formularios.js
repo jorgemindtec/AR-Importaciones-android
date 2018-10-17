@@ -341,8 +341,6 @@ function ValidarFormFotos(){
 	var correo = $("#FotoEmail").val();
 	var mensaje = $("#FotoMensaje").val();
 	
-	//var imagen = $("#input1").val();
-	
 	if($.trim(nombre) == "") {
 		$("#error-FotoNombre").show();
 		//$("#FotoNombre").focus();
@@ -375,14 +373,13 @@ function ValidarFormFotos(){
 	else{
 		$("#error-FotoMensaje").hide();
 	}
-
+	
 	if(hasError == false) {
 		var datos = {
 			"nombre" : nombre,
 			"telefono" : telefono,
 			"correo" : correo,
-			"mensaje" : mensaje/*,
-			"imagen" : imagen*/
+			"mensaje" : mensaje
 		};
 		$.ajax({
 			data : datos,
