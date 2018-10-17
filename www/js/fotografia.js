@@ -2,7 +2,7 @@
 	var contador = 0;
 	var botonReturn = false;
 	var ImgZoom = "";
-	
+
 function TomarFoto() {
 	if (contador == 6){
 		alert("no se permiten adjuntar mas de  fotos.");
@@ -18,8 +18,16 @@ function TomarFoto() {
             }			
       navigator.camera.getPicture(CamaraImagen, onFail, options);
       // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-     /*navigator.camera.getPicture(CamaraImagen, onFail, { quality: 50, allowEdit: true,
-       destinationType: destinationType.DATA_URL });*/
+	  
+	/*	var options = {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+				sourceType: Camera.PictureSourceType.CAMERA,
+				saveToPhotoAlbum: true
+            }	
+      navigator.camera.getPicture(CamaraImagen, onFail, options);*/
 	}
 }
 // mostrar imagen pequeña
@@ -32,19 +40,23 @@ function CamaraImagen(imageData) {
 	  $("#contenedor-fotos").append("<div id='"+contenedor+"'class='imagen-camara'><img id='"+close+"' class='eliminar-foto' src='img/eliminar.png' onclick='EliminarFoto("+fotoNum+")'><img id='"+foto+"' class='selected-foto' style='width:100%' src='' onclick='VerImagen("+fotoNum+")'></div>");
       $("#selected-foto").append("<div id='"+zoom+"img' style='display:none;'><img id='"+closezoom+"' class='cerrar-zoom' src='img/volver2.png' onclick='CerrarZoom("+fotoNum+")'> <img id='"+zoom+"' class='imagen-zoom' src=''></div>");
 	  
-      // Show the captured photo
+      // FILE_URI
 	  $("#"+foto).attr("src",imageData);
 	  $("#"+zoom).attr("src",imageData);
-	 /* alert(imageData);
-	  var imagen = document.getElementById(''+foto+'');
+	 // alert(imageData);
+	  
+	  // DATA_URI
+	/*  var imagen = document.getElementById(''+foto+'');
 	  var imagenzoom = document.getElementById(''+zoom+'');
       imagen.src = "data:image/jpeg;base64," + imageData;
-	  imagenzoom.src = "data:image/jpeg;base64," + imageData;*/
+	  imagenzoom.src = "data:image/jpeg;base64," + imageData;
+	  alert("data:image/jpeg;base64," + imageData);*/
+	  
 	  contador += 1;
 	  fotoNum += 1;
 }
 
-function ObtenerFoto(source) {
+function ObtenerFoto() {
 	if (contador == 6){
 		alert("no se permiten adjuntar mas de  fotos.");
 	}
@@ -53,7 +65,7 @@ function ObtenerFoto(source) {
             var options = {
                 quality: 50,
                 destinationType: Camera.DestinationType.FILE_URI,
-				sourceType: source
+				sourceType: Camera.PictureSourceType.PHOTOLIBRARY
             }
       navigator.camera.getPicture(LibreriaImagen, onFail, options);
 	}
@@ -73,14 +85,16 @@ function LibreriaImagen(imageURI) {
 	 // $("#input-foto").append("<input type='file' name='"+input+"' value='data:image/jpeg;base64,"+imageURI+"'>");
 	  //**********************
 	  
+	  //FILE_URI
 	  $("#"+foto).attr("src",imageURI);
 	  $("#"+zoom).attr("src",imageURI);
-	  
-	/*  var imagen = document.getElementById(foto);
+	 // alert(imageURI);
+	  //DATA_URI
+	 /* var imagen = document.getElementById(foto);
 	  var imagenzoom = document.getElementById(zoom);
-      // Show the captured photo	  
       imagen.src = imageURI;
 	  imagenzoom.src = imageURI;*/
+	  
 	  contador += 1;
 	  fotoNum+=1;
 }
