@@ -12,7 +12,7 @@ function TomarFoto() {
                 quality: 50,
                 destinationType: Camera.DestinationType.FILE_URI,
                 encodingType: Camera.EncodingType.JPEG,
-                mediaType: Camera.MediaType.PICTURE,
+                mediaType: Camera.MediaType.CAMERA,
 				sourceType: Camera.PictureSourceType.CAMERA,
 				saveToPhotoAlbum: true
             }			
