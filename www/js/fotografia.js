@@ -9,11 +9,12 @@ function TomarFoto() {
 	}
 	else{
 		var options = {
-                quality: 50,
+                quality: 30,
                 destinationType: Camera.DestinationType.FILE_URI,
                 encodingType: Camera.EncodingType.JPEG,
-                mediaType: Camera.MediaType.CAMERA,
+                mediaType: Camera.MediaType.PICTURE,
 				sourceType: Camera.PictureSourceType.CAMERA,
+				targetWidth: 600,
 				saveToPhotoAlbum: true
             }			
       navigator.camera.getPicture(CamaraImagen, onFail, options);
@@ -41,10 +42,14 @@ function CamaraImagen(imageData) {
       $("#selected-foto").append("<div id='"+zoom+"img' style='display:none;'><img id='"+closezoom+"' class='cerrar-zoom' src='img/volver2.png' onclick='CerrarZoom("+fotoNum+")'> <img id='"+zoom+"' class='imagen-zoom' src=''></div>");
 	  
       // FILE_URI
-	  $("#"+foto).attr("src",imageData);
+	  /*$("#"+foto).attr("src",imageData);
 	  $("#"+zoom).attr("src",imageData);
-	 // alert(imageData);
-	  
+	  alert(imageData);
+	  $("#fotoprev1").attr("src",imageData);*/
+	  var imagen = document.getElementById(''+foto+'');
+	  var imagenzoom = document.getElementById(''+zoom+'');
+      imagen.src = imageData;
+	  imagenzoom.src = imageData;
 	  // DATA_URI
 	/*  var imagen = document.getElementById(''+foto+'');
 	  var imagenzoom = document.getElementById(''+zoom+'');
@@ -54,8 +59,58 @@ function CamaraImagen(imageData) {
 	  
 	  contador += 1;
 	  fotoNum += 1;
+	  //subirImagen(imageData);
 }
 
+// ***********************************************************
+var ok = false;
+var Contadorupload = 0;
+//function subirImagen(fileURL) {
+function subirImagen() {
+	//alert("subiendo");
+	jQuery.each( Enlaces, function( i, valor ) {
+		if (valor != 'null'){
+	//		alert("valor "+valor);
+			var options = new FileUploadOptions();
+			options.fileKey = "imagen";
+			options.fileName = valor.substr(valor.lastIndexOf('/') + 1);
+
+			var ft = new FileTransfer();
+			ft.upload(valor, encodeURI("http://ar-pruebas.mindtec.me/upload-fotos.php"), uploadSuccess, uploadFail, options);
+		}
+	});
+
+}
+var contadorvalidar = 0;
+function uploadSuccess(r) {
+	//alert("subio");
+	EnlacesServerFoto[contadorEnlacesFoto] = r.response;
+	contadorEnlacesFoto+=1;
+	Enlaces[Contadorupload]='null';
+	Contadorupload+=1;	
+	
+	contadorvalidar+=1;
+		
+	//verificar();	
+               // alert("Code = " + r.responseCode+" Response = " + r.response+" Sent = " + r.bytesSent);
+               /* var image = document.getElementById('fotoServidor');
+                image.src = r.response;*/
+}
+/*var numverificar = 0;
+var errorupload = false;*/
+function verificar(){
+	//alert("funcion " +contadorvalidar);
+	if(contadorvalidar == NumEnlacesFotos){
+			//alert("ok");
+			ok=true;
+	}
+}
+function uploadFail(error) {
+    alert("Ocurrio un error");
+
+}
+
+// ***********************************************************
 function ObtenerFoto() {
 	if (contador == 6){
 		alert("no se permiten adjuntar mas de  fotos.");
@@ -63,9 +118,12 @@ function ObtenerFoto() {
 	else{
       // Retrieve image file location from specified source
             var options = {
-                quality: 50,
+                quality: 20,
                 destinationType: Camera.DestinationType.FILE_URI,
-				sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+				sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+				targetWidth: 600
             }
       navigator.camera.getPicture(LibreriaImagen, onFail, options);
 	}
@@ -86,9 +144,13 @@ function LibreriaImagen(imageURI) {
 	  //**********************
 	  
 	  //FILE_URI
-	  $("#"+foto).attr("src",imageURI);
+	 /* $("#"+foto).attr("src",imageURI);
 	  $("#"+zoom).attr("src",imageURI);
-	 // alert(imageURI);
+	  alert(imageURI);*/
+	  var imagen = document.getElementById(''+foto+'');
+	  var imagenzoom = document.getElementById(''+zoom+'');
+      imagen.src = imageURI;
+	  imagenzoom.src = imageURI;
 	  //DATA_URI
 	 /* var imagen = document.getElementById(foto);
 	  var imagenzoom = document.getElementById(zoom);
@@ -97,6 +159,8 @@ function LibreriaImagen(imageURI) {
 	  
 	  contador += 1;
 	  fotoNum+=1;
+	  //subirImagen(imageURI);
+	 // alert(imageURI);
 }
 function onFail(message) {
       //alert('Failed because: ' + message);
