@@ -65,6 +65,11 @@
 		var Lista_Aliexpress = [];
 		var Indice_Aliexpress = 0;
 		
+var Enlaces = [];
+var contadorEnlaces=0;
+var EnlacesServerFoto = [];
+var contadorEnlacesFoto=0;
+		
 		CrearBD();
 		ClearBD();
 		
@@ -142,7 +147,7 @@
             elementID: 'touchSideSwipe',
             elementWidth: 400, //px
             elementMaxWidth: 0.8, // *100%
-            sideHookWidth: 5, //px
+            sideHookWidth: 10, //px
             moveSpeed: 0.2, //sec
             opacityBackground: 0.8,
             shiftForStart: 150, // px
@@ -252,7 +257,6 @@
     </script>
 <!-- CSS -->
 	<style>
-        /*jssor slider loading skin spin css*/
         .jssorl-009-spin img {
             animation-name: jssorl-009-spin;
             animation-duration: 1.6s;
@@ -265,7 +269,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /*jssor slider arrow skin 073 css*/
         .jssora073 {display:block;position:absolute;cursor:pointer;}
         .jssora073 .a {fill:#ddd;fill-opacity:.7;stroke:#000;stroke-width:160;stroke-miterlimit:10;stroke-opacity:.7;}
         .jssora073:hover {opacity:.8;}
@@ -276,7 +279,7 @@
     </style>
 <!-- HTML -->
 	<div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;/*width:100%;*/height:150px;overflow:hidden;visibility:hidden;">
-        <!-- Loading Screen -->
+        
         <div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
             <img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="img/spin.svg" />
         </div>
@@ -285,37 +288,37 @@
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
-                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
-                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
-                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
-                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
-                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
                 <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
             <div>
-                <img data-u="image" src="https://www.mindtec.com.mx/wp-content/uploads/2018/08/publicidad.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
             </div>
         </div>
     </div>
@@ -643,7 +646,7 @@ function topFunction() {
 					<ul style="padding-left: 25px;">
 						<img src="img/location.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label>Calle Carlos Lineo #1997 Plaza botánico Local 105 Col. Chapultepec C.P. 80040, Culiacán, Sinaloa, México.</label><br>
 						<img src="img/phone.png" style="width: 17px;margin: 0px 5px -3px -23px;"><label>Tel. (667) 16 7726 </label><br>
-						<img src="img/email.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label><b>compras@arimportaciones.mx</b></label><br>
+						<img src="img/email.png" style="width: 20px;margin: 0px 5px -5px -25px;"><label><b>Ecommerce@arimportaciones.mx</b></label><br>
 					</ul>
 				</div>
 				<div id="formulario-contacto" style="margin-top: 20px;">
@@ -653,11 +656,11 @@ function topFunction() {
 							<span id="error-form-nombre" style="color: #0089c2;display: none;">* Favor de ingresar el Nombre</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
-							<input type="text" id="form-telefono" class="form-lista" placeholder="Telefono"><br>
+							<input type="tel" id="form-telefono" class="form-lista" placeholder="Telefono"><br>
 							<span id="error-form-telefono" style="color: #0089c2;display: none;">* Favor de ingresar el Teléfono</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
-							<input type="text" id="form-email" class="form-lista" placeholder="E-mail"><br>
+							<input type="email" id="form-email" class="form-lista" placeholder="E-mail"><br>
 							<span id="error-form-email" style="color: #0089c2;display: none;">* Favor de ingresar el Email</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
@@ -671,7 +674,7 @@ function topFunction() {
 					</form>
 				</div>
 				<div style="margin-top: 40px;text-align:center;">
-					<div style="text-align: center;margin-top: 10px;"><a href="#" onclick="var ref = cordova.InAppBrowser.open('https://api.whatsapp.com/send?phone=+526671643735&text=Hola, necesito información acerca de la app.', '_system', 'location=yes');"><img src="img/whatsapp.png" style="border-radius: 5px;"></a></div>
+					<div style="text-align: center;margin-top: 10px;"><a href="#" onclick="var ref = cordova.InAppBrowser.open('https://api.whatsapp.com/send?phone=+526671910075&text=Hola, necesito información acerca de la app.', '_system', 'location=yes');"><img src="img/whatsapp.png" style="border-radius: 5px;"></a></div>
 					Si desea consultar con un asesor<br> especializado, comunícate con nosotros.
 					<p style="text-align: center;color: #0089c2;"><b>BUSINESS AROUND THE WORLD</b></p>
 				</div>
@@ -689,10 +692,10 @@ function topFunction() {
 			<div class="after-header">
 			</div>
 			<div class="contenedor"> 
-				<p class="titulo-foto">Tome o agregue un máximo de 6 fotos de su producto favorito.</p>
+				<p class="titulo-foto">Tome un máximo de 6 fotos de su producto a importar.</p>
 				<div class="botones-camara">
 					<div class="boton-foto"><img src="img/camara.png" onclick="TomarFoto();"></div>
-					<div class="boton-foto"><img src="img/galeria.png" onclick="ObtenerFoto(pictureSource.SAVEDPHOTOALBUM);"></div>
+					<div class="boton-foto" style="display: none;"><img src="img/galeria.png" onclick="ObtenerFoto();"></div>
 				</div>
 				<div id="contenedor-fotos">
 				</div>
@@ -704,8 +707,8 @@ function topFunction() {
 				</div>
 				<div class="divisor-fotos"></div>
 				<div id="formulario-foto">
-					<form id="form-foto">
-					<fieldset class="dataform" data-role="fieldcontain" data-type="horizontal" style="border:none;">
+					<form id="form-foto" enctype="multipart/form-data">
+					<!--<fieldset class="dataform" data-role="fieldcontain" data-type="horizontal" style="border:none;">-->
 						<div class="form-foto-input">
 							<input id="FotoNombre" class="form-lista" type="text" name="FotoNombre" placeholder="Nombre"><br>
 							<span id="error-FotoNombre" style="color: #0069b4;display: none;">* Favor de ingresar el Nombre</span>
