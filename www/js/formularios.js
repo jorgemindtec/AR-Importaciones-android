@@ -215,17 +215,17 @@ function ValidarFormLista(){
 			url: "http://ar-pruebas.mindtec.me/form-lista.php",
 			type:"POST",
 			success: function(){
-				$("#mensaje-lista").text("El mensaje ah sido enviado con éxito.");
+				$("#mensaje-lista").text("Tu solicitud ha sido enviada, un asesor se contactará a la brevedad posible contigo.");
 				setTimeout(function() {
 					$("#mensaje-lista").text("");
-				}, 2000);
+				}, 3000);
 				UpdateBD();
 			},
 			error :function(){
 				$("#mensaje-lista").text("Ocurrio un error, por favor intentar más tarde.");
 				setTimeout(function() {
 					$("#mensaje-lista").text("");
-				}, 2000);
+				}, 3000);
 				return false;
 			},
 			complete : function(){
@@ -334,12 +334,77 @@ function ValidarFormContacto(){
 }
 
 // ********************************** ENVIAR CORREO FOTOS **********************************
+
+var NumEnlacesFotos = 0;
 function ValidarFormFotos(){
+	/*var hasError = false; 
+	var nombre = $("#FotoNombre").val();
+	var telefono = $("#FotoTelefono").val();
+	var correo = $("#FotoEmail").val();
+	var mensaje = $("#FotoMensaje").val();
+		*/
+	NumEnlacesFotos = $('#contenedor-fotos .selected-foto').length;
+	
+	/*if(NumEnlacesFotos==0){
+		return false;
+	}*/
+	if (NumEnlacesFotos > 0){		
+		$("#mensaje-foto").text("Enviando correo...");
+				
+		$("#contenedor-fotos .selected-foto" ).each(function( index ) {
+			if( index < NumEnlacesFotos){
+				Enlaces[contadorEnlaces] = $(this).attr("src");
+				contadorEnlaces += 1;
+			}
+		});	
+		subirImagen();
+		
+		var numverificar = 0;
+		
+		var busquedaEnlace = setInterval(function(){		
+			numverificar += 1;
+			verificar();
+			
+			if(ok==true){ //archivos subidos al server
+				clearInterval(busquedaEnlace);
+				EnviarCorreoFotos();
+			}		
+			else if(numverificar == 5){
+				alert("Se agoto el tiempo de espera, intentar mas tarde.");
+				clearInterval(busquedaEnlace);
+			}
+		}, 4000);
+	
+	}
+	/*jQuery.each( Enlaces, function( i, valor ) {
+		//if (valor != 'null'){
+			subirImagen(valor);
+			alert("subido ");
+		//}
+	});*/
+	
+	/*if(ok==true){
+		jQuery.each( EnlacesServerFoto, function( i, valor ) {
+			if (valor != 'null'){
+				alert("nombreimg "+valor);
+			}
+		});
+	}*/
+}
+function EnviarCorreoFotos(){
+	//alert("enviando");
+	/*jQuery.each( EnlacesServerFoto, function( i, valor ) {
+			if (valor != 'null'){
+				alert("nombreimg "+valor);
+			}
+		});*/
 	var hasError = false; 
 	var nombre = $("#FotoNombre").val();
 	var telefono = $("#FotoTelefono").val();
 	var correo = $("#FotoEmail").val();
 	var mensaje = $("#FotoMensaje").val();
+	
+	var EnlacesCamara = JSON.stringify(EnlacesServerFoto);	
 	
 	if($.trim(nombre) == "") {
 		$("#error-FotoNombre").show();
@@ -373,13 +438,13 @@ function ValidarFormFotos(){
 	else{
 		$("#error-FotoMensaje").hide();
 	}
-	
 	if(hasError == false) {
 		var datos = {
 			"nombre" : nombre,
 			"telefono" : telefono,
 			"correo" : correo,
-			"mensaje" : mensaje
+			"mensaje" : mensaje,
+			data1 : EnlacesCamara
 		};
 		$.ajax({
 			data : datos,
@@ -389,20 +454,26 @@ function ValidarFormFotos(){
 				$("#mensaje-foto").text("El mensaje ah sido enviado con éxito.");
 				setTimeout(function() {
 					$("#mensaje-foto").text("");
-				}, 2000);
+				}, 2500);
 			},
 			error :function(){
 				$("#mensaje-foto").text("Ocurrio un error, por favor intentar más tarde.");
 				setTimeout(function() {
 					$("#mensaje-foto").text("");
-				}, 2000);
+				}, 2500);
 				return false;
 			},
 			complete : function(){
 				$("#form-foto")[0].reset();
 				$("#FotoMensaje").text("Hola, Estoy interesado en el producto de la imagen. Dar mas detalles: ");
+				$("#contenedor-fotos").html('');
+				$("#selected-foto").html('');
+				Enlaces = [];
+				contadorEnlaces=0;
+				EnlacesServerFoto = [];
+				contadorEnlacesFoto=0;
 			}
 		});
-	}	
+	}
 	return false;
 }
