@@ -199,6 +199,7 @@ function ValidarFormLista(){
 	}
 
 	if(hasError == false) {
+		$("#mensaje-lista").text("Enviando correo...");
 		var datos = {
 			"nombre" : nombre,
 			"telefono" : telefono,
@@ -302,6 +303,7 @@ function ValidarFormContacto(){
 	}
 
 	if(hasError == false) {
+		$("#mensaje-contacto").text("Enviando correo...");
 		var datos = {
 			"nombre" : nombre,
 			"telefono" : telefono,
@@ -337,67 +339,40 @@ function ValidarFormContacto(){
 
 var NumEnlacesFotos = 0;
 function ValidarFormFotos(){
-	/*var hasError = false; 
-	var nombre = $("#FotoNombre").val();
-	var telefono = $("#FotoTelefono").val();
-	var correo = $("#FotoEmail").val();
-	var mensaje = $("#FotoMensaje").val();
-		*/
-	NumEnlacesFotos = $('#contenedor-fotos .selected-foto').length;
-	
-	/*if(NumEnlacesFotos==0){
-		return false;
-	}*/
-	if (NumEnlacesFotos > 0){		
-		$("#mensaje-foto").text("Enviando correo...");
-				
-		$("#contenedor-fotos .selected-foto" ).each(function( index ) {
-			if( index < NumEnlacesFotos){
-				Enlaces[contadorEnlaces] = $(this).attr("src");
-				contadorEnlaces += 1;
-			}
-		});	
-		subirImagen();
+	if ( $.trim($("#FotoNombre").val())!="" && $.trim($("#FotoTelefono").val())!="" && $.trim($("#FotoEmail").val())!="" && $.trim($("#FotoMensaje").val())!=""){
 		
-		var numverificar = 0;
+		NumEnlacesFotos = $('#contenedor-fotos .selected-foto').length;
 		
-		var busquedaEnlace = setInterval(function(){		
-			numverificar += 1;
-			verificar();
+		if (NumEnlacesFotos > 0){
+			$("#mensaje-foto").text("Enviando correo...");
+					
+			$("#contenedor-fotos .selected-foto" ).each(function( index ) {
+				if( index < NumEnlacesFotos){
+					Enlaces[contadorEnlaces] = $(this).attr("src");
+					contadorEnlaces += 1;
+				}
+			});	
+			subirImagen();
 			
-			if(ok==true){ //archivos subidos al server
-				clearInterval(busquedaEnlace);
-				EnviarCorreoFotos();
-			}		
-			else if(numverificar == 5){
-				alert("Se agoto el tiempo de espera, intentar mas tarde.");
-				clearInterval(busquedaEnlace);
-			}
-		}, 4000);
-	
+			var numverificar = 0;
+			
+			var busquedaEnlace = setInterval(function(){		
+				numverificar += 1;
+				verificar();
+				
+				if(ok==true){ //archivos subidos al server
+					clearInterval(busquedaEnlace);
+					EnviarCorreoFotos();
+				}		
+				else if(numverificar == 5){
+					alert("Se agoto el tiempo de espera, intentar mas tarde.");
+					clearInterval(busquedaEnlace);
+				}
+			}, 4000);		
+		}
 	}
-	/*jQuery.each( Enlaces, function( i, valor ) {
-		//if (valor != 'null'){
-			subirImagen(valor);
-			alert("subido ");
-		//}
-	});*/
-	
-	/*if(ok==true){
-		jQuery.each( EnlacesServerFoto, function( i, valor ) {
-			if (valor != 'null'){
-				alert("nombreimg "+valor);
-			}
-		});
-	}*/
 }
 function EnviarCorreoFotos(){
-	//alert("enviando");
-	/*jQuery.each( EnlacesServerFoto, function( i, valor ) {
-			if (valor != 'null'){
-				alert("nombreimg "+valor);
-			}
-		});*/
 	var hasError = false; 
 	var nombre = $("#FotoNombre").val();
 	var telefono = $("#FotoTelefono").val();
