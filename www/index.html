@@ -578,11 +578,11 @@ function topFunction() {
 							<span id="error-form-lista-nombre" style="color: #0069b4;display: none;">* Favor de ingresar el Nombre</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
-							<input type="text" id="form-lista-telefono" class="form-lista" placeholder="Telefono"><br>
+							<input type="tel" id="form-lista-telefono" class="form-lista" placeholder="Telefono"><br>
 							<span id="error-form-lista-telefono" style="color: #0069b4;display: none;">* Favor de ingresar el Teléfono</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
-							<input type="text" id="form-lista-email" class="form-lista" placeholder="E-mail"><br>
+							<input type="email" id="form-lista-email" class="form-lista" placeholder="E-mail"><br>
 							<span id="error-form-lista-email" style="color: #0069b4;display: none;">* Favor de ingresar el Email</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
@@ -590,13 +590,12 @@ function topFunction() {
 							<span id="error-form-lista-mensaje" style="color: #0069b4;display: none;">* Favor de ingresar el Mensaje</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
-							<button type="submit" class="form-boton" onclick="ValidarFormLista()"><label>Contactar</label></button>	
+							<!--<button type="submit" class="form-boton" onclick="ValidarFormLista()"><label>Contactar</label></button>	-->
+							<div class="form-boton" style="margin: auto;" onclick="ValidarFormLista()"><label>Contactar</label></div>
 						</div>
 						<div style="text-align: center;"><span id="mensaje-lista"></span></div>
 					</form>
 				</div>
-				<!--<div onclick="CrearBD()">crear</div>
-				<div onclick="borrar()">reset</div>-->
 			</div>
 			
 		</div>
@@ -670,7 +669,8 @@ function topFunction() {
 							<span id="error-form-mensaje" style="color: #0089c2;display: none;">* Favor de ingresar el Mensaje</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
-							<button type="submit" class="form-boton" onclick="ValidarFormContacto()"><label>Contactar</label></button>	
+							<!--<button type="submit" class="form-boton" onclick="ValidarFormContacto()"><label>Contactar</label></button>	-->
+							<div class="form-boton" style="margin: auto;" onclick="ValidarFormContacto()"><label>Contactar</label></div>
 						</div>
 						<div style="text-align: center;"><span id="mensaje-contacto"></span></div>
 					</form>
@@ -728,7 +728,8 @@ function topFunction() {
 							<span id="error-FotoMensaje" style="color: #0069b4;display: none;">* Favor de ingresar el Mensaje</span>
 						</div>
 						<div style="width: 100%;margin: 5px 0;text-align: center;">
-							<button type="submit" id="send-fotos" onclick="ValidarFormFotos()"><label>Enviar</label></button>	
+							<!--<button type="submit" id="send-fotos" onclick="ValidarFormFotos()"><label>Enviar</label></button>-->							
+							<div id="send-fotos" style="margin: auto;" onclick="ValidarFormFotos()"><label>Enviar</label></div>
 						</div>					
 						<div style="text-align: center;"><span id="mensaje-foto"></span></div>					
 					</form>
