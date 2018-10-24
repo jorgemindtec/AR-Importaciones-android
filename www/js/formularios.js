@@ -339,6 +339,30 @@ function ValidarFormContacto(){
 
 var NumEnlacesFotos = 0;
 function ValidarFormFotos(){
+	if($.trim($("#FotoNombre").val()) == "") {
+		$("#error-FotoNombre").show();
+	}
+	else{
+		$("#error-FotoNombre").hide();
+	}
+	if($.trim($("#FotoTelefono").val()) == "") {
+		$("#error-FotoTelefono").show();
+	}
+	else{
+		$("#error-FotoTelefono").hide();
+	}
+	if($.trim($("#FotoEmail").val()) == "") {
+		$("#error-FotoEmail").show();
+	}
+	else{
+		$("#error-FotoEmail").hide();
+	}
+	if($.trim($("#FotoMensaje").val()) == "") {
+		$("#error-FotoMensaje").show();
+	}
+	else{
+		$("#error-FotoMensaje").hide();
+	}
 	if ( $.trim($("#FotoNombre").val())!="" && $.trim($("#FotoTelefono").val())!="" && $.trim($("#FotoEmail").val())!="" && $.trim($("#FotoMensaje").val())!=""){
 		
 		NumEnlacesFotos = $('#contenedor-fotos .selected-foto').length;
@@ -373,7 +397,7 @@ function ValidarFormFotos(){
 	}
 }
 function EnviarCorreoFotos(){
-	var hasError = false; 
+	//var hasError = false; 
 	var nombre = $("#FotoNombre").val();
 	var telefono = $("#FotoTelefono").val();
 	var correo = $("#FotoEmail").val();
@@ -381,7 +405,7 @@ function EnviarCorreoFotos(){
 	
 	var EnlacesCamara = JSON.stringify(EnlacesServerFoto);	
 	
-	if($.trim(nombre) == "") {
+	/*if($.trim(nombre) == "") {
 		$("#error-FotoNombre").show();
 		//$("#FotoNombre").focus();
 		hasError = true;
@@ -412,8 +436,8 @@ function EnviarCorreoFotos(){
 	}
 	else{
 		$("#error-FotoMensaje").hide();
-	}
-	if(hasError == false) {
+	}*/
+	//if(hasError == false) {
 		var datos = {
 			"nombre" : nombre,
 			"telefono" : telefono,
@@ -449,6 +473,6 @@ function EnviarCorreoFotos(){
 				contadorEnlacesFoto=0;
 			}
 		});
-	}
+	//}
 	return false;
 }
