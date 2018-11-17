@@ -132,15 +132,33 @@ function CrearCuenta(){
 			url: "http://ar-pruebas.mindtec.me/crear-cuenta.php",
 			type: "post",
 			success: function(response){
-				$("#form-registro-usuario")[0].reset();
-				$("#resultado2").html(response);
-				$("#resultado2").show();
-				setTimeout(function() {
-					$("#resultado2").hide();
-				}, 1500);
+				if (response=="error1"){
+					$("#resultado2").html("Error: El usuario seleccionado ya existe.");
+					$("#resultado2").show();		
+					setTimeout(function() {
+						$("#resultado2").hide();
+					}, 3000);
+					$("#CuentaUsuario").val("");
+					$("#CuentaUsuario").focus();
+				}
+				else if (response=="error2"){
+					$("#resultado2").html("Error: No se encontro conexión, favor de intentar más tarde.");
+					$("#resultado2").show();		
+					setTimeout(function() {
+						$("#resultado2").hide();
+					}, 3000);
+				}
+				else{
+					$("#resultado2").html(response);
+					$("#form-registro-usuario")[0].reset();
+					$("#resultado2").show();
+					setTimeout(function() {
+						$("#resultado2").hide();
+					}, 2000);
+				}
 			},
 			error :function(response){
-				alert("Ocurrio un error, por favor intentar mas tarde." +response);
+				alert("Ocurrio un error, por favor intentar mas tarde.");
 				return false;
 			}
 		});
