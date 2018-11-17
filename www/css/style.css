@@ -93,17 +93,16 @@ a {
     box-shadow: 3px 3px 5px #191919;
 }
 #touchSideSwipe #element-menu {
-    height: calc(100% - 195px);
-    padding-top: 20px;
-    padding-bottom: 20px;
+    height: calc(100% - 185px);
     background-image: url(../img/fondo-menu.png);
     background-size: 100% 100%;
     color: white;
     font-weight: bold;
+    overflow-y: auto;
 }
 #touchSideSwipe ul {
     margin: 0px;
-    padding: 0;
+    padding: 20px 0;
 }
 #touchSideSwipe ul li {
     list-style: none;	
@@ -119,6 +118,9 @@ a {
 #touchSideSwipe ul li label {
     font-size: 20px;
 }
+div#logout {
+    padding: 20px 0;
+}
 .tss--close .tss-label_pic {
     color: transparent;
 }
@@ -129,7 +131,8 @@ a {
 .contenedor {
     padding-top: 5px;
     padding-bottom: 5px;
-    margin: 20px;
+    margin: 20px 20px 0 20px;
+    padding-bottom: 20px;
     max-width: 600px;
     overflow: hidden;
     margin-left: auto;
@@ -368,9 +371,6 @@ form#form-registro-usuario label {
     color: #1070ba;
     text-decoration: underline;
 }
-div#logout {
-    margin: 30px 0;
-}
 div#logout label {
     width: 110px;
     margin: 0 auto;
@@ -385,6 +385,15 @@ div#logout label {
 /* -- */
 /* -- */
 /* ------- PANTALLA BUSCAR PRODUCTOS --------------------- */
+.img-refresh {
+    width: 32px;
+    height: 32px !important;
+    border: 1px #1070ba solid;
+    padding: 5px;
+    border-radius: 10px;
+    margin-right: 10px;
+    box-shadow: 2px 2px 5px rgba(12, 108, 171, 0.8);
+}
 #GoTop {
     background: rgba(0, 81, 152, 0.4);
     border-radius: 10px;
