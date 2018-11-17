@@ -139,8 +139,8 @@ var contadorEnlacesFoto=0;
 				<li id="menu06" onclick="menu(6);"><img src="img/contacto-menu.png"> <label>Contacto</label></li>
 				<li id="menu07" onclick="menu(7);"><img src="img/m-camera.png"> <label>Tomar Foto a Producto</label></li>
 				<li id="menu08" onclick="menu(8);" style="display:none;"><img src="img/m-lista.png"> <label>Mis Importaciones</label></li>
+				<div id="logout" style="display:none;"><label onclick="LogOut()">Cerrar Sesión</label></div>
 			</ul>
-			<div id="logout" style="display:none;"><label onclick="LogOut()">Cerrar Sesión</label></div>
 		</div>
 	</div>
     <script src="js/touch-sideswipe.js"></script>
@@ -287,40 +287,40 @@ var contadorEnlacesFoto=0;
         </div>
         <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:150px;overflow:hidden;">
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-1.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-2.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-3.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-4.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-5.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-6.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-7.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-8.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-9.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-10.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-11.jpg" />
             </div>
             <div>
-                <img data-u="image" src="http://ar-pruebas.mindtec.me/ejemplo-ar.jpg" />
+                <img data-u="image" src="http://ar-pruebas.mindtec.me/img-12.jpg" />
             </div>
         </div>
     </div>
@@ -395,58 +395,56 @@ var contadorEnlacesFoto=0;
 					<option value="5">Aliexpress</option>
 				</select>
 				<script>
-				
+var NumRefresh = 0;
 $("#tiendas").change(function(){
-    //var value = $(this).val();
-	//alert(value);	
 	if ($(this).val() == 1){
 		OcultarProductos();
-		//$("#up").focus();
 		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Ebay").show();
 		$("#lg-ebay").show();
+		refresh_Ebay();
 	}
 	else if ($(this).val() == 2){
 		OcultarProductos();
-		//$("#up").focus();
 		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Amazon").show();
 		$("#lg-amazon").show();
+		refresh_Amazon();
 	}
 	else if ($(this).val() == 3){
 		OcultarProductos();
-		//$("#up").focus();
 		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Alibaba").show();
 		$("#lg-alibaba").show();
+		refresh_Alibaba();
 	}
 	else if ($(this).val() == 4){
 		OcultarProductos();
-		//$("#up").focus();
 		topFunction();
 		$(".triangulo.buscador").show();
 		$("#MadeChina").show();
 		$("#lg-madechina").show();
+		refresh_Madechina();
 	}
 	else if ($(this).val() == 5){
 		OcultarProductos();
-		//$("#up").focus();
 		topFunction();
 		$(".triangulo.buscador").show();
 		$("#Aliexpress").show();
 		$("#lg-aliexpress").show();
+		refresh_Aliexpress();
 	}
 });
 </script>
 				<div id="logo-tiendas">
-					<img id="lg-ebay" src="img/lg-ebay.png">
-					<img id="lg-amazon" src="img/lg-amazon.png" style="display:none;">
-					<img id="lg-alibaba" src="img/lg-alibaba.png" style="display:none;">
-					<img id="lg-madechina" src="img/lg-made.png" style="display:none;">
-					<img id="lg-aliexpress" src="img/lg-aliexpress.png" style="display:none;">
+					<div id="lg-ebay"><div style="width: calc(100% - 54px);display: inline-block;"><img src="img/lg-ebay.png"></div><img class="img-refresh" src="img/refresh.png" onclick="refresh_Ebay()"></div>
+					<div id="lg-amazon" style="display:none;"><div style="width: calc(100% - 54px);display: inline-block;"><img src="img/lg-amazon.png"></div><img class="img-refresh" src="img/refresh.png" onclick="refresh_Amazon()"></div>
+					<div id="lg-alibaba" style="display:none;"><div style="width: calc(100% - 54px);display: inline-block;"><img src="img/lg-alibaba.png"></div><img class="img-refresh" src="img/refresh.png" onclick="refresh_Alibaba()"></div>
+					<div id="lg-madechina" style="display:none;"><div style="width: calc(100% - 54px);display: inline-block;"><img src="img/lg-made.png"></div><img class="img-refresh" src="img/refresh.png" onclick="refresh_Madechina()"></div>
+					<div id="lg-aliexpress" style="display:none;"><div style="width: calc(100% - 54px);display: inline-block;"><img src="img/lg-aliexpress.png"></div><img class="img-refresh" src="img/refresh.png" onclick="refresh_Aliexpress()"></div>
 				</div>
 				</div>
 			</div>
@@ -461,7 +459,7 @@ $("#tiendas").change(function(){
 				<div id="Alibaba" class="products" style="display:none;"></div>
 				<div id="MadeChina" class="products" style="display:none;"></div>
 				<div id="Aliexpress" class="products" style="display:none;"></div>
-				<img id="GoTop" src="img/up.png" onclick=" topFunction()">
+				<img id="GoTop" src="img/up.png" onclick="topFunction()">
 			</div>
 			<script>
 window.onscroll = function() {scrollFunction()};
@@ -804,7 +802,7 @@ function topFunction() {
 					</form>
 					
 					<div>
-						<p>Al registrarse en AR Importaciones aceptas nuestras <label>Condiciones de uso</label> y <label>Política de privacidad</label>.
+						<p>Al registrarse en AR Importaciones aceptas nuestras <a href="#" onclick="var ref = cordova.InAppBrowser.open('https://www.arimportaciones.mx/condiciones-de-uso.html', '_system', 'location=yes');"><label>Condiciones de uso</label></a> y <a href="#" onclick="var ref = cordova.InAppBrowser.open('https://www.arimportaciones.mx/politicas-de-privacidad.html', '_system', 'location=yes');"><label>Política de privacidad</label></a>.
 					</div>
 					
 				</div>
