@@ -22,8 +22,7 @@ function Cargando(){
 	$("#MadeChina").html("");
 	$("#MadeChina").append(loading);
 	$("#Aliexpress").html("");
-	$("#Aliexpress").append(loading);
-	
+	$("#Aliexpress").append(loading);	
 }
 // --------- BUSCADOR DE PRODUCTOS DE INICIO---------------
 $(function() {  
@@ -35,15 +34,16 @@ $(function() {
 });
 
 function BuscadorInicio(){
+		NumRefresh = 0;
 	var keyword = $.trim(document.getElementById("buscador-inicio").value);
 	if (keyword==""){
 		document.getElementById("buscador-inicio").value="";
 		$("#buscador-inicio").focus();
 	}
 	else{
+		NumRefresh = 1;
 		menu(3);
 		OcultarProductos();
-		//$("#Ebay-Productos").addClass( "active" );
 		$("#tiendas").val(1);
 		$("#lg-ebay").show();
 		$(".triangulo.buscador").show();
@@ -53,11 +53,11 @@ function BuscadorInicio(){
 		document.getElementById("buscar").value = keyword;
 		document.getElementById("buscador-inicio").value = "";
 		
-		Amazon(keyword);
+		//Amazon(keyword);
 		Ebay(keyword);
-		Alibaba(keyword);
+		/*Alibaba(keyword);
 		MadeChina(keyword);
-		Aliexpress(keyword);
+		Aliexpress(keyword);*/
 	}
 }
 
@@ -78,7 +78,8 @@ function BuscarProducto(){
 		document.getElementById("buscar").value="";
 		$("#buscar").focus();
 	}
-	else{
+	else if( NumRefresh == 0){
+		NumRefresh = 1;
 		OcultarProductos();
 		$("#tiendas").val(1);
 		$("#lg-ebay").show();
@@ -86,37 +87,17 @@ function BuscarProducto(){
 		$(".triangulo.buscador").show();
 			Cargando();
 		
-		Amazon(keyword);
+		//Amazon(keyword);
 		Ebay(keyword);
-		Alibaba(keyword);
+		/*Alibaba(keyword);
 		MadeChina(keyword);
-		Aliexpress(keyword);
+		Aliexpress(keyword);*/
 	}
 }
 
-// ------- PESTAÑAS DE TIENDAS ---------------- 
-/*function EbayContent(){
-	OcultarProductos();
-	$(".triangulo.buscador").show();
-	$("#lg-ebay").show();
-	$("#Ebay").show();
-}
-function AmazonContent(){
-	OcultarProductos();
-	$(".triangulo.buscador").show();
-	$("#lg-amazon").show();
-	$("#Amazon").show();
-}
-function AlibabaContent(){
-	OcultarProductos();
-	//$("#Amazon-Productos").addClass( "active" );
-	$(".triangulo.buscador").show();
-	$("#lg-alibaba").show();
-	$("#Alibaba").show();
-}*/
-
 // -------- PRODUCTOS POR PESTAÑAS ------------------
 var NumEbay = 0;
+var Validar_ebay = 0;
 function Ebay(producto){
 	var texto = producto.replace(/ /g,"+");
 	var SearchUrl = 'https://m.ebay.com/sch/i.html?_from=R40&_trksid=p2056088.m4084.l1313.TR12.TRC2.A0.H0.X'+texto+'.TRS0&_nkw='+texto;
@@ -131,11 +112,24 @@ function Ebay(producto){
 		$( "#srp-river-results-query_answer2" ).remove();
 		var element = $('.s-item').length;
 		if (element == 0){
-			Ebay(producto);
+			var loading = $(".load-productos").html();
+			$("#Ebay").html("");
+			$("#Ebay").append(loading);
+			setTimeout(function(){							
+				if(Validar_ebay > 3){
+					$("#Ebay").html("<div style='padding:10px;'>Error: Intentar una nueva busqueda.</div>");
+					Validar_ebay = 0;
+					NumRefresh = 0;
+				}
+				else{
+					Validar_ebay += 1;
+					Ebay(producto);
+				}
+			}, 2000);
 		}
 		else{
-			//var index = 0;
-			
+			Validar_ebay = 0;
+			NumRefresh = 0;	
 			$( "#srp-river-main .s-item" ).each(function( index ) {
 				if( index < element){	
 					var id="eb"+NumEbay;			
@@ -149,6 +143,7 @@ function Ebay(producto){
 	});
 }
 var NumAmazon = 0;
+var Validar_amazon = 0;
 function Amazon(producto){
 	var texto = producto.replace(/ /g,"+");
 	var SearchUrl = 'https://www.amazon.com/gp/aw/s/ref=is_s?k='+texto;
@@ -157,10 +152,24 @@ function Amazon(producto){
 		
 		var element = $('#resultItems .sx-table-item').length;
 		if (element == 0){
-			Amazon(producto);
+			var loading = $(".load-productos").html();
+			$("#Amazon").html("");
+			$("#Amazon").append(loading);
+			setTimeout(function(){							
+				if(Validar_amazon > 3){
+					$("#Amazon").html("<div style='padding:10px;'>Error: Intentar una nueva busqueda.</div>");
+					Validar_amazon = 0;
+					NumRefresh = 0;
+				}
+				else{
+					Validar_amazon += 1;
+					Amazon(producto);
+				}
+			}, 2000);
 		}
 		else{
-			//var index = 0;
+			Validar_amazon = 0;	
+			NumRefresh = 0;
 			$( "#resultItems .sx-table-item" ).each(function( index ) {			
 				if( index < element){
 					var id="am"+NumAmazon;
@@ -174,25 +183,40 @@ function Amazon(producto){
 					NumAmazon+=1;
 				}
 			});
-		}		
+		}
 	});
 }
 var NumAlibaba = 0;
+var Validar_alibaba = 0;
 function Alibaba(producto){	
 	//CAMBIAR ENLACE A PAGINA WEB EN LUGAR DE ENLACE MOVIL
 	var texto = producto.replace(/ /g,"+");
 	var SearchUrl = 'https://m.alibaba.com/trade/search?SearchText='+texto;
 	var Url = ''+SearchUrl+' #page';
 	
-	$('#Alibaba').load(Url, function() {
+	$('#Alibaba').load(Url, function() { //////////////// AGREGAR TIEMPO MAXIMO DE ESPERA
 		$( ".list-icons.list-icon-p4p-new-add" ).remove();
 		$( ".app-banner" ).remove();
 		var element = $('.product-item').length;
 		if (element == 0){
-			Alibaba(producto);
+			var loading = $(".load-productos").html();
+			$("#Alibaba").html("");
+			$("#Alibaba").append(loading);
+			setTimeout(function(){							
+				if(Validar_alibaba > 3){
+					$("#Alibaba").html("<div style='padding:10px;'>Error: Intentar una nueva busqueda.</div>");
+					Validar_alibaba = 0;
+					NumRefresh = 0;
+				}
+				else{
+					Validar_alibaba += 1;
+					Alibaba(producto);
+				}
+			}, 2000);
 		}
 		else{
-			//var index = 0;			
+			Validar_alibaba = 0;
+			NumRefresh = 0;		
 			$( "#page .product-item" ).each(function( index ) {
 				if( index < element){	
 					var id="alb"+NumAlibaba;			
@@ -209,6 +233,7 @@ function Alibaba(producto){
 	});		
 }
 var NumMadeChina = 0;
+var Validar_madechina = 0;
 function MadeChina(producto){
 	//CAMBIAR ENLACE A PAGINA WEB EN LUGAR DE ENLACE MOVIL
 	var texto = producto.replace(/ /g,"+");
@@ -218,11 +243,24 @@ function MadeChina(producto){
 	$('#MadeChina').load(Url, function() {
 		var element = $('.list-item').length;
 		if (element == 0){
-			MadeChina(producto);
+			var loading = $(".load-productos").html();
+			$("#MadeChina").html("");
+			$("#MadeChina").append(loading);
+			setTimeout(function(){							
+				if(Validar_madechina > 3){
+					$("#MadeChina").html("<div style='padding:10px;'>Error: Intentar una nueva busqueda.</div>");
+					Validar_madechina = 0;
+					NumRefresh = 0;
+				}
+				else{
+					Validar_madechina += 1;
+					MadeChina(producto);
+				}
+			}, 2000);
 		}
 		else{
-			//var index = 0;
-			
+			Validar_madechina = 0;	
+			NumRefresh = 0;
 			$( ".products-wrap .list-item" ).each(function( index ) {
 				if( index < element){	
 					var id="mdc"+NumMadeChina;			
@@ -243,6 +281,7 @@ function MadeChina(producto){
 	});
 }
 var NumAliexpress = 0;
+var Validar_aliexpress = 0;
 function Aliexpress(producto){
 	var texto = producto.replace(/ /g,"-");
 	var SearchUrl = 'https://www.aliexpress.com/af/'+texto+'.html?SearchText='+texto+'&blanktest=0&origin=n&jump=afs';
@@ -251,11 +290,24 @@ function Aliexpress(producto){
 	$('#Aliexpress').load(Url, function() {
 		var element = $('.list-item').length
 		if (element == 0){
-			Aliexpress(producto);
+			var loading = $(".load-productos").html();
+			$("#Aliexpress").html("");
+			$("#Aliexpress").append(loading);
+			setTimeout(function(){							
+				if(Validar_aliexpress > 3){
+					$("#Aliexpress").html("<div style='padding:10px;'>Error: Intentar una nueva busqueda.</div>");
+					Validar_aliexpress = 0;
+					NumRefresh = 0;
+				}
+				else{
+					Validar_aliexpress += 1;
+					Aliexpress(producto);
+				}
+			}, 2000);
 		}
 		else{
-		//	var index = 0;
-			
+			Validar_aliexpress = 0;
+			NumRefresh = 0;
 			$( "#hs-below-list-items .list-item" ).each(function( index ) {
 				if( index < element){	
 					var id="ali"+NumAliexpress;
@@ -274,4 +326,76 @@ function Aliexpress(producto){
 			});
 		}	
 	});
+}
+
+/* ---------------- REFRESH  --------------------- */
+function refresh_Ebay(){
+	document.activeElement.blur(); // ocultar teclado
+	var keyword = $.trim(document.getElementById("buscar").value);
+	if (keyword==""){
+		document.getElementById("buscar").value="";
+	}
+	else if( NumRefresh == 0){
+		NumRefresh = 1;
+		var loading = $(".load-productos").html();
+		$("#Ebay").html("");
+		$("#Ebay").append(loading);
+		Ebay(keyword);
+	}
+}
+function refresh_Amazon(){
+	document.activeElement.blur(); // ocultar teclado
+	var keyword = $.trim(document.getElementById("buscar").value);
+	if (keyword==""){
+		document.getElementById("buscar").value="";
+	}
+	else if( NumRefresh == 0){
+		NumRefresh = 1;
+		var loading = $(".load-productos").html();
+		$("#Amazon").html("");
+		$("#Amazon").append(loading);
+		Amazon(keyword);
+	}
+}
+function refresh_Alibaba(){
+	document.activeElement.blur(); // ocultar teclado
+	var keyword = $.trim(document.getElementById("buscar").value);
+	if (keyword==""){
+		document.getElementById("buscar").value="";
+	}
+	else if( NumRefresh == 0){
+		NumRefresh = 1;
+		var loading = $(".load-productos").html();
+		$("#Alibaba").html("");
+		$("#Alibaba").append(loading);
+		Alibaba(keyword);
+	}
+}
+function refresh_Madechina(){
+	document.activeElement.blur(); // ocultar teclado
+	var keyword = $.trim(document.getElementById("buscar").value);
+	if (keyword==""){
+		document.getElementById("buscar").value="";
+	}
+	else if( NumRefresh == 0){
+		NumRefresh = 1;
+		var loading = $(".load-productos").html();
+		$("#MadeChina").html("");
+		$("#MadeChina").append(loading);
+		MadeChina(keyword);
+	}
+}
+function refresh_Aliexpress(){
+	document.activeElement.blur(); // ocultar teclado
+	var keyword = $.trim(document.getElementById("buscar").value);
+	if (keyword==""){
+		document.getElementById("buscar").value="";
+	}
+	else if( NumRefresh == 0){
+		NumRefresh = 1;
+		var loading = $(".load-productos").html();
+		$("#Aliexpress").html("");
+		$("#Aliexpress").append(loading);		
+		Aliexpress(keyword);
+	}
 }
